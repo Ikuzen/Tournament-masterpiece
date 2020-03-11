@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BracketTreeComponent } from './shared/components/bracket-tree/bracket-tree.component';
+import {TreeModule} from 'primeng/tree';
+import {TreeNode} from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -10,7 +12,8 @@ import { BracketTreeComponent } from './shared/components/bracket-tree/bracket-t
     BracketTreeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    TreeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
