@@ -10,9 +10,7 @@ export const tournament_schema = Joi.object({
         .integer()
         .min(2)
         .max(256)
-        .required(),
-    id: Joi.string(),
-    createdAt: Joi.date()
+        .required()
 })
     .with('name', 'size')
 

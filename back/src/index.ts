@@ -15,8 +15,8 @@ interface Tournament {
 
 app.use(bodyParser.json());
 
-function schemaVerify(tournament: Tournament): any{
-    return tournament_schema.validate(tournament);
+function schemaVerify(object: any): any{
+    return tournament_schema.validate(object);
 }
 //Requests
 app.get('/', (req, res) => {
@@ -24,31 +24,20 @@ app.get('/', (req, res) => {
 });
 
 let tournaments: Tournament[] = [];
-// let Tournaments = new Map<string,Tournament();
 //POST
 app.post('/tournaments', (req, res) => {
-    const body: Tournament = {
-        name:req.body.name,
-        size:req.body.size,
-        id: uuid.v4(),
-        createdAt: new Date(),
-    };
-    const schemaVerification = schemaVerify(body)
+    const schemaVerification = schemaVerify(req.body)
     if(schemaVerification.error){
         res.send(schemaVerification.error);
     }
     else
     {    
-        if(body.name.length >20 || body.name.length < 3){
-            res.status(409).send(
-                `tournament name must be between 3 and 20 characters`
-            );
-        }
-        if(typeof body.size !== "number"){
-            res.status(409).send(
-                `size must be a number`
-            );
-        }
+        const body = {
+        ...(req.body as any),
+        id: uuid.v4(),
+        createdAt: new Date(),
+        };
+
         if (tournaments.some(({name}) => name === body.name)) {
             res.status(409).send(
                 `There already is a tournament with the name "${body.name}"`
