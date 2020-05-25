@@ -93,26 +93,26 @@ app.delete('/tournaments/', (req, res) => {
 
 
 //UPDATE BY ID
-// app.put('/tournaments/:id', async(req, res) => {
-
-//     const schemaVerification = schemaVerify(req.body)
-//     if (schemaVerification.error) {
-//         return res.status(400).send(schemaVerification.error);
-//     }
-
-//     const tournament: Tournament = {
-//         ...req.body,
-//         _id: uuid.v4(),
-//         createdAt: new Date(),
-//     };
-
-//     const {} = await dbManager.updateDocument(req.body);
-
-//     if (!upsertedCount) {
-//         return res.status(404).send(`Tournament ${req.body.id} Not Found`);
-//     }
-
-//     return res.send(req.body);
-// });
+app.put('/tournaments/:id', async(req, res) => {
+    const { id } = req.params;
+    let objectToModify = await dbManager.getDocument(id);
+    delete objectToModify._id;
+    delete objectToModify.createdAt;
+    let modifiedObject = Object.assign(objectToModify,req.body);
+    const schemaValidation = schemaVerify(modifiedObject)
+    
+    if(schemaValidation.error){
+        return res.status(209).send(`Couldn't update "${req.body.name}`)
+    }
+    try {
+        const update = await dbManager.updateDocument(id, req.body);
+        return res.send(update);
+        
+    } catch (e) {
+        return res.status(409).send(
+            `Couldn't update "${req.body.name}"`
+        )
+    }
+});
 
 app.listen(PORT, () => log('Listening on port', PORT));

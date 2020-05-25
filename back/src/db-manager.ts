@@ -55,18 +55,19 @@ export class DbManager {
     }
 
     async updateDocument(_id:string, obj: any) {
-        const res = await this.collection.updateOne(
-            {_id: obj._id},
-            {$set: obj}
-        );
-        return res;
+        log('Updating document...');
+        
+        try{
+            const res = this.collection.updateOne(
+                {"_id": _id},
+                {$set: obj}
+            );
+            console.log('update successful')
+            return res;
+        }
+        catch(e){
+            console.log(e)
+        }
     }
-    // async updateDocument(obj: any) {
-    //     const res = await this.collection.update(
-    //         {_id: obj._id},
-    //         {$set: obj}
-    //     );
-    //     return res;
-    // }
 }
 
