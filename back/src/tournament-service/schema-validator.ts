@@ -14,3 +14,6 @@ export const tournament_schema = Joi.object({
 })
     .with('name', 'size')
 
+export function schemaVerify(object: any): any {
+    return tournament_schema.validate(object);
+}
