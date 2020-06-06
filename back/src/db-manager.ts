@@ -20,7 +20,7 @@ export class DbManager {
             this.client = client;
             this.db = client.db(dbName);
             this.collection = this.db.collection(collectionName);
-            this.collection.createIndex({"name": 1}, { unique: true } ) // forces unique tournament name
+            // this.collection.createIndex({"name": 1}, { unique: true } ) // forces unique tournament name
         });
     }
 
@@ -53,7 +53,12 @@ export class DbManager {
         const res = await this.collection.deleteMany({});
         return res;
     }
-
+    async getDocumentByName(username:string){
+        log('Get document...');
+        const res = await this.collection.findOne({username});
+        return res;
+    }
+    
     async updateDocument(_id:string, obj: any) {
         log('Updating document...');
         

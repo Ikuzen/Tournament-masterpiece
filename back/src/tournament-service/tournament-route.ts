@@ -3,11 +3,11 @@ import { Tournament } from "./tournament-interface";
 import { schemaVerify } from "./schema-validator";
 import * as uuid from 'uuid';
 import { DbManager } from '.././db-manager';
-import { dbConfig } from '.././config';
+import { dbConfigTournament } from '.././config';
 
 const express = require('express');
 const tournamentRouter = express.Router();
-const dbManager = new DbManager(dbConfig);
+const dbManager = new DbManager(dbConfigTournament);
 
 
 
