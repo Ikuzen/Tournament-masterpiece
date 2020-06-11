@@ -2,26 +2,25 @@ import { MongoClient, Db, Collection } from 'mongodb';
 import * as debug from 'debug';
 
 const log = debug('tn:dbmanager');
+const mongoose = require('mongoose');
 
 interface DbManagerOptions {
     mongodbUrl: string;
     dbName: string;
     collectionName: string;
+    model: any;
 }
 
 export class DbManager {
-    private client!: MongoClient;
     private db!: Db;
     private collection!: Collection;
+    private model: any;
     constructor(options: DbManagerOptions) {
-        const { dbName, collectionName, mongodbUrl } = options;
-        MongoClient.connect(mongodbUrl).then((client) => {
-            log('MongoDB connected');
-            this.client = client;
-            this.db = client.db(dbName);
-            this.collection = this.db.collection(collectionName);
-            // this.collection.createIndex({"name": 1}, { unique: true } ) // forces unique tournament name
-        });
+        const { dbName, collectionName, mongodbUrl, model } = options;
+        mongoose.connect(mongodbUrl)
+        this.db = mongoose.connection;
+        this.collection = this.db.collection(collectionName);
+        this.model = model
     }
 
     async putDocument(obj: any) {
@@ -32,8 +31,10 @@ export class DbManager {
 
     async listDocuments() {
         log('Listing documents...');
-        const res = await this.collection.find();
-        return res.toArray();
+        const res = await this.model.find((err, res)=>{
+            return res;
+        })
+        return res
     }
 
     async getDocument(_id: string) {
