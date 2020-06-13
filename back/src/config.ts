@@ -1,16 +1,13 @@
 
-const moongoose = require('mongoose')
 export const dbConfigTournament = {
-    mongodbUrl: 'mongodb://localhost:27017',
+    mongodbUrl: 'mongodb+srv://Ikuzen:HBBM5uidbQKLkXRX@cluster0-7rybn.mongodb.net/',
     dbName: 'TournamentDB',
-    collectionName: 'Tournament',
-    model: moongoose.model('Tournament', new moongoose.Schema({
-        name:String,
-        size:Number
-    }))
+    collectionName: 'tournaments'
 }
 export const dbConfigUser = {
-    mongodbUrl: 'mongodb://localhost:27017',
+    mongodbUrl: 'mongodb+srv://Ikuzen:HBBM5uidbQKLkXRX@cluster0-7rybn.mongodb.net/',
     dbName: 'TournamentDB',
-    collectionName: 'User',
+    collectionName: 'users',
 }
+
+export const uri = "mongodb+srv://Ikuzen:HBBM5uidbQKLkXRX@cluster0-7rybn.mongodb.net/"
