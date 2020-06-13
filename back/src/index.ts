@@ -1,15 +1,26 @@
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
 import * as debug from 'debug';
+import * as config from './config'
+const userRoute = require('./user-service/user-route')
+const tournamentRoute = require('./tournament-service/tournament-route')
+
+const mongoose = require('mongoose');
+mongoose.connect(config.uri+'TournamentDB');
+
+const db = mongoose.connection
 const log = debug('tn:express');
 const app = express();
 const PORT = 3000;
-const tournamentRoute = require('./tournament-service/tournament-route');
-const userRoute = require('./user-service/user-route')
+const BodyParser = require("body-parser");
 
-app.use(bodyParser.json());
-app.use('/',tournamentRoute);
-app.use('/',userRoute)
+app.use(BodyParser.json());
+app.use('/user',userRoute)
+app.use('/tournament',tournamentRoute)
+
+db.once('open', function () {
+    console.log("connected")
+});
+
 app.get('/', (req, res) => {
     res.send('<h1>tournament API</h1>');
 });

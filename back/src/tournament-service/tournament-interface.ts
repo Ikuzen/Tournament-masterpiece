@@ -1,5 +1,3 @@
-
-
 export interface Tournament {
     _id: string;
     createdAt: Date;
