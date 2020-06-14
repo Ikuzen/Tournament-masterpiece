@@ -12,6 +12,8 @@ tournamentRouter.post("/", async (request, response) => {
         response.status(500).send(error);
     }
 });
+
+
 tournamentRouter.get("/", async (request, response) => {
     try {
         const result = await TournamentModel.find().exec();

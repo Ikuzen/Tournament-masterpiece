@@ -25,6 +25,7 @@
     "@types/express": "^4.17.6",
     "@types/mongodb": "^3.5.18",
     "@types/node": "^13.11.1",
+    "express-swagger-generator": "^1.1.17",
     "gts": "^2.0.1",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
@@ -37,6 +38,8 @@
     "express": "^4.17.1",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.18",
+    "swagger-express-router": "latest",
+    "swagger-ui-express": "^4.1.4",
     "ts-node": "^8.10.1",
     "uuid": "^8.0.0"
   }
