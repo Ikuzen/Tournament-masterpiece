@@ -1,11 +1,11 @@
 
 export const dbConfigTournament = {
-    mongodbUrl: 'mongodb+srv://Ikuzen:HBBM5uidbQKLkXRX@cluster0-7rybn.mongodb.net/test',
+    mongodbUrl: 'mongodb://localhost:27017',
     dbName: 'TournamentDB',
     collectionName: 'tournaments'
 }
 export const dbConfigUser = {
-    mongodbUrl: 'mongodb+srv://Ikuzen:HBBM5uidbQKLkXRX@cluster0-7rybn.mongodb.net/test',
+    mongodbUrl: 'mongodb://localhost:27017',
     dbName: 'TournamentDB',
     collectionName: 'users',
 }
