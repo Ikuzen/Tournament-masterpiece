@@ -1,0 +1,19 @@
+#login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .login-form-group{
+        display: flex;
+        flex-direction: column;
+    }
+    button:hover{
+        cursor: pointer;
+    }
+    .error{
+        min-width: max-content;
+    }
+    input{
+        min-width: 166px;
+    }
+}

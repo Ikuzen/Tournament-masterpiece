@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar-top',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarTopComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  items: MenuItem[];
+  constructor(private router: Router) {
   }
 
+  ngOnInit() {
+  }
+
+
+  navigate(link: any) {
+    this.router.navigate([link]);
+  }
 }

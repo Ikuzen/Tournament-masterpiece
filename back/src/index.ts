@@ -5,14 +5,16 @@ const userRoute = require('./user-service/user-route')
 const tournamentRoute = require('./tournament-service/tournament-route')
 
 const mongoose = require('mongoose');
-mongoose.connect(config.uri+'TournamentDB');
+mongoose.connect(config.uri+'/TournamentDB');
 
 const db = mongoose.connection
 const log = debug('tn:express');
 const app = express();
 const PORT = 3000;
+const cors = require('cors');
 const BodyParser = require("body-parser");
 
+app.use(cors())
 app.use(BodyParser.json());
 app.use('/user',userRoute)
 app.use('/tournament',tournamentRoute)

@@ -1,0 +1,29 @@
+<div *ngIf="accountCreated">Inscription réussie ! Vous pouvez utiliser maintenant vos identifiants</div>
+
+<div id="login-form">
+    <h3 class="first">Login</h3>
+    <div class="p-grid login-form-group">
+        <div class="p-col-12 p-md-4">
+            <!-- username -->
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon "><i class="pi pi-user" style="line-height: 1.25;"></i></span>
+                <input name="name" [(ngModel)]="username" required minlength="4" required maxlength="30" type="text"
+                    pInputText placeholder="Username" #name="ngModel">
+                </div>
+            </div>
+            <!-- password -->
+            <div class="p-col-12 p-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-lock" style="line-height: 1.25;"></i></span>
+                    <input [(ngModel)]="password" type="password" pInputText placeholder="Password">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="error" >{{errorMessage}}</div>
+        <div class="button-group">
+            <button pButton type="button" label="Connect" (click)="login()"></button>
+            <button pButton type="button" label="Forgot password ?" (click)="passwordRecovery()"></button>
+        </div>
+</div>
