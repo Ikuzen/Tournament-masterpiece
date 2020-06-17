@@ -1,4 +1,6 @@
 import {UserModel} from './user-model'
+import {jwtMW} from '../secret'
+const exjwt = require('express-jwt');
 
 const express = require('express');
 const userRouter = express.Router();
@@ -40,7 +42,8 @@ userRouter.put("/:id", async (request, response) => {
     }
 });
 
-userRouter.delete("/:id", async (request, response) => {
+userRouter.delete("/:id", 
+    async (request, response) => {
     try {
         const result = await UserModel.deleteOne({ _id: request.params.id }).exec();
         response.send(result);
