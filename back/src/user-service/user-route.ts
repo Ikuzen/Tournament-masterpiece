@@ -19,7 +19,7 @@ userRouter.get("/", async (request, response) => {
         const result = await UserModel.find().exec();
         response.send(result);
     } catch (error) {
-        response.status(500).send(error);
+        response.status(404).send(`users not found`);
     }
 });
 userRouter.get("/:id", async (request, response) => {
@@ -27,7 +27,16 @@ userRouter.get("/:id", async (request, response) => {
         const user = await UserModel.findById(request.params.id).exec();
         response.send(user);
     } catch (error) {
-        response.status(500).send(error);
+        response.status(404).send(`user ${request.params.id}not found`);
+    }
+});
+
+userRouter.get("/username/:username", async (request, response) => {
+    try {
+        const user = await UserModel.findById(request.params.id).exec();
+        response.send(user);
+    } catch (error) {
+        response.status(404).send(`user ${request.params.username}not found`);
     }
 });
 
@@ -38,7 +47,7 @@ userRouter.put("/:id", async (request, response) => {
         const result = await user.save();
         response.send(result);
     } catch (error) {
-        response.status(500).send(error);
+        response.status(404).send(`user ${request.params.id}not found`);
     }
 });
 
@@ -48,7 +57,7 @@ userRouter.delete("/:id",
         const result = await UserModel.deleteOne({ _id: request.params.id }).exec();
         response.send(result);
     } catch (error) {
-        response.status(500).send(error);
+        response.status(404).send(`tournament ${request.params.id}not found`);
     }
 });
 
