@@ -1,40 +1,47 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { User } from './user';
 import { Observable } from 'rxjs';
+import { LoginService } from '../login/login.service';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  httpOptions: { headers: HttpHeaders }
+  constructor(private http: HttpClient, private loginService: LoginService) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: loginService.getToken()
+      })
+    };
+  }
 
-  constructor(private http: HttpClient) {
-   }
+  create(user: User) {
+    return this.http.post<User>('http://localhost:3000/user', user, this.httpOptions);
+  }
 
-   create(user: User){
-    return this.http.post<User>('http://localhost:3000/user', user);
-   }
-   
-   getAll(): Observable<User[]>{
-    return this.http.get<User[]>('http://localhost:3000/user');
+  getAll(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:3000/user', this.httpOptions);
 
-   }
-   getById(id: string){
-    return this.http.get<User>(`http://localhost:3000/user/${id}`);
-   }
-   
-   getByName(username: string){
-    return this.http.get<User>(`http://localhost:3000/user/username/${username}`);
-   }
+  }
+  getById(id: string) {
+    return this.http.get<User>(`http://localhost:3000/user/${id}`, this.httpOptions);
+  }
 
-   update(id: string, user: User){
-    return this.http.put<User>(`http://localhost:3000/user/${id}`,user);
+  getByName(username: string) {
+    return this.http.get<User>(`http://localhost:3000/user/username/${username}`, this.httpOptions);
+  }
 
-   }
-   deleteById(id: string){
-    return this.http.delete<User>(`http://localhost:3000/user/${id}`);
+  update(id: string, user: User) {
+    return this.http.put<User>(`http://localhost:3000/user/${id}`, user, this.httpOptions);
 
-   }
-   deleteAll(){
-    return this.http.delete<User>('http://localhost:3000/user');
-   }
+  }
+  deleteById(id: string) {
+    return this.http.delete<User>(`http://localhost:3000/user/${id}`, this.httpOptions);
+
+  }
+  deleteAll() {
+    return this.http.delete<User>('http://localhost:3000/user', this.httpOptions);
+  }
 }

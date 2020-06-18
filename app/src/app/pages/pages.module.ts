@@ -21,11 +21,12 @@ import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { ForbiddenComponent } from './forbidden/forbidden.component';
 
 
 
 @NgModule({
-  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, BracketTreeComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent],
+  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, BracketTreeComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent],
   imports: [
     CommonModule,
     CarouselModule,

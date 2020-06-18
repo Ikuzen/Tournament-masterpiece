@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../users/user.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { LoginService } from './login.service';
+import { Credentials } from './login-interfaces'
 
 
 @Component({
@@ -13,9 +15,10 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 export class LoginComponent implements OnInit {
   username: string;
   password: string;
+  private credentials: Credentials;
   accountCreated = false;
   errorMessage = "";
-  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private localStorage:LocalStorageService
+  constructor(private router: Router, private route: ActivatedRoute, private userService: UserService, private localStorage: LocalStorageService, private loginService: LoginService
   ) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -24,25 +27,26 @@ export class LoginComponent implements OnInit {
       }
     });
 
-  };
+  }
   login() {
+    this.resetErrorMessage();
     if (this.username && this.password) {
-      this.userService.getByName(this.username).subscribe((result) => {
-        if (result.password === this.password) {
-          this.localStorage.saveSession(result)
-          this.router.navigate(["/user"])
-          console.log("successfully connected")
-        }
-        else {
-          this.errorMessage = 'wrong password';
-        }
+      this.credentials = { username: this.username, password: this.password }
+      this.loginService.login(this.credentials).subscribe((result) => {
+        this.router.navigate(["/user"])
       },
-        (error) => {
-          this.errorMessage = "user does not exist";
+        (err) => {
+          this.errorMessage = err.error.err;
         });
     }
+    else{
+      this.errorMessage = "one of the fields are missing"
+    }
   }
-  passwordRecovery(){
+  passwordRecovery() {
     this.router.navigate(["/password-recovery"])
+  }
+  resetErrorMessage(){
+    this.errorMessage = "";
   }
 }
