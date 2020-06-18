@@ -12,7 +12,7 @@ export class UserService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: loginService.getToken()
+        Authorization: `Bearer ${loginService.getToken()}`
       })
     };
   }
