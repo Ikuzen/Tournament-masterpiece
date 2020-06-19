@@ -1,6 +1,6 @@
 <p-menubar [model]="items">
     <div>
-        <button pButton label="Login" style="margin-left:.25em" (click)="navigate('/login')"></button>
+        <button pButton *ngIf="!isLoggedIn" label="Login" style="margin-left:.25em" (click)="navigate('/login')"></button>
         <button pButton label="Register" style="margin-left:.25em"(click)="navigate('/register')"></button>
         <button pButton label="Users" style="margin-left:.25em"(click)="navigate('/users')"></button>
     </div>

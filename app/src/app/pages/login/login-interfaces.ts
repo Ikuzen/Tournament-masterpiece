@@ -6,5 +6,7 @@ export interface Credentials {
 export interface JWTResponse {
     success: boolean;
     err: string;
-    token: string;
+    access_token: string;
+    refresh_token: string;
+    expiresAt: Date;
 }

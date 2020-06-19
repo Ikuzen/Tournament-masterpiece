@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { LoginService } from 'src/app/pages/login/login.service';
 
 @Component({
   selector: 'app-navbar-top',
@@ -10,10 +12,18 @@ import { Router } from '@angular/router';
 export class NavbarTopComponent implements OnInit {
 
   items: MenuItem[];
-  constructor(private router: Router) {
+  isLoggedIn = false;
+  loggedUser = null;
+  constructor(private router: Router, private loginService: LoginService) {
   }
 
   ngOnInit() {
+    this.loginService.getTokenVerification().subscribe((result)=>{
+      if(result.body){
+        this.loggedUser = result.body.username;
+        this.isLoggedIn = true;
+      }
+    });
   }
 
 

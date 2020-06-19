@@ -19,7 +19,7 @@ export class LoginService {
       tap((result) => {
         if (result.success) {
           // this.localStorage.saveSession(result.token);
-          this.setToken(result.token)
+          this.setToken(result.access_token);
           return "successfully connected"
         } else {
           return result.err
@@ -30,11 +30,7 @@ export class LoginService {
         }))
   }
   checkToken() {
-    return this.http.get<{header, body}>(`http://localhost:3000/token/verify`, {
-      headers: {
-        Authorization: `Bearer ${this.getToken()}`,
-      },
-    }).pipe(
+    return this.getTokenVerification().pipe(
       map((response) => {
         if (response.body) {
           return true; // boolean
@@ -42,24 +38,30 @@ export class LoginService {
           return false; // boolean
         }
       }),
-      catchError( (error: any) => {
+      catchError((error: any) => {
         console.log(error)
         return of(false);
       })
     );
   }
-
+  getTokenVerification(): Observable<any> {
+    return this.http.get<{ header, body }>(`http://localhost:3000/token/verify`, {
+      headers: {
+        Authorization: `Bearer ${this.getToken()}`,
+      }
+    });
+  }
   getToken() {
-    this.token = localStorage.getItem('token');
+    this.token = localStorage.getItem('access_token');
     return this.token;
   }
 
   setToken(token) {
-    localStorage.setItem('token', token);
+    localStorage.setItem('access_token', token);
   }
 
   clearToken() {
-    localStorage.setItem('token', '');
+    localStorage.setItem('access_token', '');
     this.token = '';
   }
 }
