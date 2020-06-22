@@ -18,15 +18,14 @@ export class LoginService {
     return this.http.post<JWTResponse>('http://localhost:3000/login', credentials).pipe(
       tap((result) => {
         if (result.success) {
-          // this.localStorage.saveSession(result.token);
           this.setToken(result.access_token);
           return "successfully connected"
         } else {
-          return result.err
+          return result.err;
         }
       },
         (error) => {
-          return error
+          return error;
         }))
   }
   checkToken() {
@@ -39,7 +38,7 @@ export class LoginService {
         }
       }),
       catchError((error: any) => {
-        console.log(error)
+        console.log(error);
         return of(false);
       })
     );
