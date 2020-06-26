@@ -10,7 +10,7 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 const fs = require('fs')
 
-mongoose.connect(config.uri+'/Tournament-Masterpiece');
+mongoose.connect(config.uri, {useNewUrlParser:true});
 
 const db = mongoose.connection
 const log = debug('tn:express');
