@@ -11,9 +11,6 @@ import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { MyCounterComponent } from './my-counter/my-counter/my-counter.component';
 import { reducer } from './reducers/login-page.reducer';
-const reducers = combineReducers({
-  currentUser: reducer
-})
 
 @NgModule({
   declarations: [
@@ -25,7 +22,9 @@ const reducers = combineReducers({
     AppRoutingModule,
     ComponentsModule,
     PagesModule,
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot({
+      currentUser: reducer
+    }),
     StoreDevtoolsModule.instrument({
       name: 'Tournament-Masterpiece',
       maxAge: 50,
