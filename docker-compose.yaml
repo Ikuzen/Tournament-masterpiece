@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  database:
+    container_name: tournament-database
+    build:
+      context: mongo
+      args:
+        USERNAME: ${TOURNAMENT_MONGO_USERNAME}
+        PASSWORD: ${TOURNAMENT_MONGO_PASSWORD}
+        DATABASE: ${TOURNAMENT_MONGO_DATABASE}
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${TOURNAMENT_MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${TOURNAMENT_MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${TOURNAMENT_MONGO_DATABASE}
+    ports:
+      - 27017:27017
+    volumes:
+      - tournament-mongo-volume:/data/db
+  api:
+    container_name: tournament-api
+    build:
+      context: back
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    links:
+      - database:database.tournament.service
+    env_file:
+      - .env
+    environment:
+      TOURNAMENT_MONGO_HOST: database.tournament.service:27017
+volumes:
+  tournament-mongo-volume:
