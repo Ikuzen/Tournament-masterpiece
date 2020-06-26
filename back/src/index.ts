@@ -10,7 +10,7 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 const fs = require('fs')
 
-mongoose.connect(config.uri+'/TournamentDB');
+mongoose.connect(config.uri+'/Tournament-Masterpiece');
 
 const db = mongoose.connection
 const log = debug('tn:express');
@@ -26,7 +26,7 @@ fs.readFile('./keys/private.pem',(err,data)=>{
 app.use(cors())
 app.use(BodyParser.json());
 app.use(cors()); 
-app.use((jwtMW).unless({path: ['/token','/login']}));
+app.use((jwtMW).unless({path: ['/token','/login', '/user']}));
 app.use('/token', tokenRoute)
 app.use('/login', loginRoute)
 app.use('/user',userRoute)
