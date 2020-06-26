@@ -1,29 +1,23 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { increment, decrement, reset } from '../../actions/counter.actions';
-
+import {userSelector, ApplicationState} from '../../reducers/login-page.reducer'
 @Component({
   selector: 'app-my-counter',
   templateUrl: './my-counter.component.html',
   styleUrls: ['./my-counter.component.css'],
 })
 export class MyCounterComponent {
-  count$: Observable<number>;
+  user$: any;
+  _user$: any
 
-  constructor(private store: Store<{ count: number }>) {
-    this.count$ = store.pipe(select('count'));
+  constructor(private readonly store: Store) {
   }
-
-  increment() {
-    this.store.dispatch(increment());
+  ngOnInit(){
+    this.user$ = this.store.pipe(select(userSelector))
+    this.user$.subscribe((appState: ApplicationState) => this._user$ = appState);
   }
-
-  decrement() {
-    this.store.dispatch(decrement());
-  }
-
-  reset() {
-    this.store.dispatch(reset());
+  show(){
+    console.log(this._user$);
   }
 }

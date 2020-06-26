@@ -1,23 +1,37 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as LoginPageActions from '../actions/login-page.actions'
-
+import {Tournament} from '../pages/tournaments/tournament'
+import { User } from '../pages/users/user';
 export const loginPageFeatureKey = 'loginPage';
 
-export interface State {
-  user:{
-    username?: string
+export interface ApplicationState {
+  currentlyLoading: boolean;
+  currentUser:{
+    username?: string;
+    role?: string;
   }
+  tournamentList: Tournament[];
+  userList: User[];
 }
 
-export const initialState: State = {
-  user:{}
+export const initialState: ApplicationState = {
+  currentlyLoading: false,
+  currentUser:{
+    username: "unknown",
+    role: "guest"
+  },
+  tournamentList:[],
+  userList:[]
 };
+const selectUserState = createFeatureSelector<ApplicationState>("currentUser");
+export const userSelector = createSelector(selectUserState,(state: ApplicationState) => state);
 
 const loginPageReducer = createReducer(
   initialState,
-  on(LoginPageActions.login, state => state )
-);
+  on(LoginPageActions.login, 
+    (state, {username, role}) => ({...state, username, role})
+  ))
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: ApplicationState | undefined, action: Action) {
   return loginPageReducer(state, action);
 }

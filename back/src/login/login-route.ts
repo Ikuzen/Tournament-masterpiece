@@ -13,7 +13,6 @@ loginRouter.post("/", async (req, res) => {
         if (user) {
             let access_token = jwt.sign({ _id: user._id, username: user.username }, "kRRorxJyC1pUVDpFldyGz1jRPt8koOyj1xdHF9zxnvht2D1iwOXZDhBQdOKakJOc", { expiresIn: Date.now()+250000 }); 
             const refresh_token = randtoken.uid(256);
-            // refresh_token[refresh_token] = res.json({access_token: 'JWT '+ access_token, refresh_token: refresh_token})
             res.json({
                 success: true,
                 err: null,

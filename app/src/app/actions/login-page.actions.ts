@@ -16,5 +16,5 @@ export const loadLoginPagesFailure = createAction(
 
 export const login = createAction(
   '[Login Page] Login',
-  props<{ username: string; password: string }>()
+  props<{ username: string, role: string }>()
 );

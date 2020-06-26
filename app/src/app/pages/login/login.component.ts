@@ -5,6 +5,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { LoginService } from './login.service';
 import { Credentials } from './login-interfaces'
 import * as action from '../../actions/login-page.actions'
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -31,10 +32,12 @@ export class LoginComponent implements OnInit {
   login() {
     this.resetErrorMessage();
     if (this.username && this.password) {
-      this.store.dispatch(action.login({ username: this.username, password: this.password }));
-
       this.credentials = { username: this.username, password: this.password }
       this.loginService.login(this.credentials).subscribe((result) => {
+        this.store.dispatch(action.login({ 
+          username:this.username,
+          role:"guest"
+        }));
         this.router.navigate(["/user"])
       },
         (err) => {

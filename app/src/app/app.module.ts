@@ -5,12 +5,12 @@ import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
-import { reducer } from './reducers/index.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { MyCounterComponent } from './my-counter/my-counter/my-counter.component';
+import { reducer } from './reducers/login-page.reducer';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,13 @@ import { MyCounterComponent } from './my-counter/my-counter/my-counter.component
     AppRoutingModule,
     ComponentsModule,
     PagesModule,
-    StoreModule.forRoot(reducer, {})  ],
+    StoreModule.forRoot(reducer),
+    StoreDevtoolsModule.instrument({
+      name: 'Tournament-Masterpiece',
+      maxAge: 50,
+    }),
+  ],
+    
   providers: [],
   bootstrap: [AppComponent]
 })
