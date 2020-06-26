@@ -8,7 +8,16 @@ A backend express application (Using mongoDB database)
 HOW TO START THE BACKEND:
 
 *for the database :
+
+Using Docker :
+docker-compose database
+
+
 *For the backend
+Using Docker :
+docker-compose api
+
+Without Docker: 
 
 cd back
 npm install
