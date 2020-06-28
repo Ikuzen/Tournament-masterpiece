@@ -18,27 +18,28 @@ export class UserService {
   }
 
   create(user: User) {
-    return this.http.post<User>('http://localhost:3000/user', user, this.httpOptions);
+    console.log("test")
+    return this.http.post<User>('http://localhost:3000/user', user);
   }
 
   getAll(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:3000/user', this.httpOptions);
+    return this.http.get<User[]>('http://localhost:3000/user');
 
   }
   getById(id: string) {
-    return this.http.get<User>(`http://localhost:3000/user/${id}`, this.httpOptions);
+    return this.http.get<User>(`http://localhost:3000/user/${id}`);
   }
 
   getByName(username: string) {
-    return this.http.get<User>(`http://localhost:3000/user/username/${username}`, this.httpOptions);
+    return this.http.get<User>(`http://localhost:3000/user/username/${username}`);
   }
 
   update(id: string, user: User) {
-    return this.http.put<User>(`http://localhost:3000/user/${id}`, user, this.httpOptions);
+    return this.http.put<User>(`http://localhost:3000/user/${id}`, user);
 
   }
   deleteById(id: string) {
-    return this.http.delete<User>(`http://localhost:3000/user/${id}`, this.httpOptions);
+    return this.http.delete<User>(`http://localhost:3000/user/${id}`);
 
   }
   deleteAll() {

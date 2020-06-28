@@ -6,7 +6,7 @@ export const loginPageFeatureKey = 'loginPage';
 
 export interface ApplicationState {
   currentlyLoading: boolean;
-  currentUser:{
+  currentUser: {
     username?: string;
     role?: string;
   }
@@ -16,20 +16,20 @@ export interface ApplicationState {
 
 export const initialState: ApplicationState = {
   currentlyLoading: false,
-  currentUser:{
+  currentUser: {
     username: "unknown",
     role: "guest"
   },
-  tournamentList:[],
-  userList:[]
+  tournamentList: [],
+  userList: []
 };
-const selectUserState = createFeatureSelector<ApplicationState>("currentUser");
-export const userSelector = createSelector(selectUserState,(state: ApplicationState) => state);
+export const userSelector = createFeatureSelector<ApplicationState>('State');
+// export const userSelector = createSelector(selectUserState, (state: ApplicationState) => state);
 
 const loginPageReducer = createReducer(
   initialState,
-  on(LoginPageActions.login, 
-    (state, {username, role}) => ({...state, username, role})
+  on(LoginPageActions.login,
+    (state, {currentUser}) => ({...state, currentUser})
   ))
 
 export function reducer(state: ApplicationState | undefined, action: Action) {

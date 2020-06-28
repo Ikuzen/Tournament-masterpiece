@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   private credentials: Credentials;
   accountCreated = false;
   errorMessage = "";
-  constructor(private router: Router, private store:Store<any>, private route: ActivatedRoute, private userService: UserService, private localStorage: LocalStorageService, private loginService: LoginService
+  constructor(private router: Router, private store: Store<any>, private route: ActivatedRoute, private userService: UserService, private localStorage: LocalStorageService, private loginService: LoginService
   ) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -34,24 +34,20 @@ export class LoginComponent implements OnInit {
     if (this.username && this.password) {
       this.credentials = { username: this.username, password: this.password }
       this.loginService.login(this.credentials).subscribe((result) => {
-        this.store.dispatch(action.login({ 
-          username:this.username,
-          role:"guest"
-        }));
         this.router.navigate(["/user"])
       },
         (err) => {
           this.errorMessage = err.error.err;
         });
     }
-    else{
+    else {
       this.errorMessage = "one of the fields are missing"
     }
   }
   passwordRecovery() {
     this.router.navigate(["/password-recovery"])
   }
-  resetErrorMessage(){
+  resetErrorMessage() {
     this.errorMessage = "";
   }
 }

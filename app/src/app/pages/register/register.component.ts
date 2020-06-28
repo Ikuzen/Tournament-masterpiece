@@ -26,16 +26,12 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
-    this.generalError = ""
+    this.generalError = "";
     if (this.username && this.password && this.email && this.birthdate && this.passwordBis && (this.password === this.passwordBis)) {
       this.user = { 'username': this.username, 'password': this.password, 'email': this.email, 'birthdate': this.birthdate }
       this.userService.getByName(this.username)
       .subscribe(
-        (result) => { //if name exist, then display error
-          if(!result){
-            this.usernameError = 'There already is a user with that username';
-          }
-          else{
+        (result) => {
             this.userService.create(this.user).subscribe((result) => {
               this.router.navigate(['/login', { success: true }]);
             },
@@ -48,8 +44,7 @@ export class RegisterComponent implements OnInit {
                 this.emailError = '"email" must be a valid email';
               }
             });
-          }
-        })
+          })
     }
     else if(this.passwordBis !== this.password){
       this.generalError = "passwords are not matching"

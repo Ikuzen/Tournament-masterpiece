@@ -7,6 +7,7 @@ const cors = require('cors')
 const userRouter = express.Router();
 userRouter.use(cors({origin: 'http://localhost:4200'}))
 
+//POST
 userRouter.post("/", async (request, response) => {
     try {
         const user = new UserModel(request.body);
@@ -16,6 +17,8 @@ userRouter.post("/", async (request, response) => {
         response.status(500).send(error);
     }
 });
+
+//GET all
 userRouter.get("/", async (request, response) => {
     try {
         const result = await UserModel.find().exec();
@@ -24,6 +27,9 @@ userRouter.get("/", async (request, response) => {
         response.status(404).send(`users not found`);
     }
 });
+
+//GET by id
+
 userRouter.get("/:id", async (request, response) => {
     try {
         const user = await UserModel.findById(request.params.id).exec();
@@ -33,23 +39,18 @@ userRouter.get("/:id", async (request, response) => {
     }
 });
 
-userRouter.get("/username/:username", async (request, response) => {
-    try {
-        const user = await UserModel.findById(request.params.id).exec();
-        response.send(user);
-    } catch (error) {
-        response.status(404).send(`user ${request.params.username}not found`);
-    }
-});
+
 //GET by username
 userRouter.get("/username/:username", async (request, response) => {
     try {
-        const user = await UserModel.find({ username: new RegExp(`^${request.params.username}`) }).exec();
+        const user = await UserModel.find({ username: new RegExp(`^${request.params.username}$`) }).exec();
         response.send(user);
     } catch (error) {
         response.status(500).send(error);
     }
 });
+
+//UPDATE by id
 
 userRouter.put("/:id", async (request, response) => {
     try {
@@ -61,6 +62,7 @@ userRouter.put("/:id", async (request, response) => {
         response.status(404).send(`user ${request.params.id}not found`);
     }
 });
+//DELETE by id
 
 userRouter.delete("/:id", 
     async (request, response) => {
@@ -71,7 +73,7 @@ userRouter.delete("/:id",
         response.status(404).send(`tournament ${request.params.id}not found`);
     }
 });
-
+//DELETE ALL
 userRouter.delete("/", async (request, response) => {
     try {
         const result = await UserModel.deleteMany().exec();
