@@ -13,18 +13,18 @@ import * as action from '../../actions/login-page.actions'
 })
 export class LoginService {
   token: string;
-  constructor(private readonly store: Store ,private router: Router, private route: ActivatedRoute, private http: HttpClient, private localStorage: LocalStorageService) {
+  constructor(private readonly store: Store, private router: Router, private route: ActivatedRoute, private http: HttpClient, private localStorageService: LocalStorageService) {
   }
 
   login(credentials: Credentials) {
     return this.http.post<JWTResponse>('http://localhost:3000/login', credentials).pipe(
       tap((result) => {
         if (result.success) {
-          this.clearToken()
-          this.setToken(result.access_token);
+          this.clearToken();
+          this.localStorageService.setToken(result.access_token);
           this.store.dispatch(action.login({
-          currentUser: this.getUserFromToken(result.access_token)
-        }));
+            currentUser: this.getUserFromToken(result.access_token)
+          }));
           console.log(result)
           return "successfully connected";
         } else {
@@ -33,8 +33,22 @@ export class LoginService {
       },
         (error) => {
           return error;
-        }))
+        }));
   }
+
+  logout() {
+    this.clearToken();
+    this.store.dispatch(
+      action.login({
+        currentUser: {
+          username: '',
+          role: 'guest'
+        }
+      })
+    )
+    this.router.navigate(["/main"]);
+  }
+
   checkToken() {
     return this.getTokenVerification().pipe(
       map((response) => {
@@ -49,34 +63,33 @@ export class LoginService {
       })
     );
   }
-  getUserFromToken(token: string): any{
-    const decodedToken = JSON.parse(atob(token.split(".")[1]));
-    return {
+  getUserFromToken(token?: string): any {
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split(".")[1]));
+      return {
         username: decodedToken.username,
         role: decodedToken.role
-    };
+      };
+    }
+    else {
+      return {
+        username: "unknown",
+        role: "guest"
+      }
+    }
   }
 
   getTokenVerification(): Observable<any> {
     return this.http.get<{ header, body }>(`http://localhost:3000/token/verify`, {
       headers: {
-        Authorization: `Bearer ${this.getToken()}`,
+        Authorization: `Bearer ${this.localStorageService.getToken()}`,
       }
     });
   }
-  getToken(): string {
-    this.token = localStorage.getItem('access_token');
-    return this.token;
-  }
 
-  setToken(token: string): void {
-    localStorage.setItem('access_token', token);
-  }
-
-  clearToken(): void {
-    localStorage.clear();
-    // localStorage.setItem('access_token', '');
-    this.token = '';
+  clearToken() {
+    this.localStorageService.clearToken();
+    this.token = "";
   }
 }
 

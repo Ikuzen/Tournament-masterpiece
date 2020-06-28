@@ -7,23 +7,32 @@ import { Subject, Observable, from, of, BehaviorSubject } from 'rxjs';
 
 export class LocalStorageService {
   localStorage = window.localStorage;
-  private _loginEvent$: BehaviorSubject<{ accessToken: string }> = new BehaviorSubject({accessToken: this.localStorage.accessToken});
+  private _loginEvent$: BehaviorSubject<{ access_token: string }> = new BehaviorSubject({access_token: this.localStorage.access_token});
   constructor() {
 
   }
   
-  get loginEvent$(): Observable<{ accessToken: string }> {
+  get loginEvent$(): Observable<{ access_token: string }> {
     return from(this._loginEvent$);
   }
   
-  saveSession(jwt: string) {
-    this.localStorage.setItem("accessToken", jwt);
-    this._loginEvent$.next({ accessToken: jwt });
-  }
 
   logOut() {
     console.log("logged out")
     this.localStorage.clear();
-    this._loginEvent$.next({"accessToken":""});
+    this._loginEvent$.next({"access_token":""});
+  }
+  getToken(): string {
+    return localStorage.getItem('access_token');
+  }
+
+  setToken(token: string): void {
+    this.localStorage.setItem('access_token', token);
+    this._loginEvent$.next({ access_token: token });
+  }
+
+  clearToken(): void {
+    localStorage.clear();
+    this._loginEvent$.next({"access_token":""});
   }
 }

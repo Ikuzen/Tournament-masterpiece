@@ -1,8 +1,9 @@
 <p-menubar [model]="items">
     <div>
-        <!-- <button pButton *ngIf="isLoggedIn" label="Welcome" style="margin-left:.25em"></button> -->
-        <button pButton  label="Login" style="margin-left:.25em" (click)="navigate('/login')"></button>
+        <button pButton *ngIf="(_user$ | async)?.username" [label]="(_user$ | async)?.username" style="margin-left:.25em"></button>
         <button pButton label="Register" style="margin-left:.25em"(click)="navigate('/register')"></button>
         <button pButton label="Users" style="margin-left:.25em"(click)="navigate('/users')"></button>
+        <button *ngIf="(_user$ | async)?.role === 'guest'" pButton  label="Login" style="margin-left:.25em" (click)="navigate('/login')"></button>
+        <button *ngIf="(_user$ | async)?.role !== 'guest'" pButton label="Logout" class="pi pi-exit" style="margin-left:.25em" (click)="logout()"></button>
     </div>
 </p-menubar>

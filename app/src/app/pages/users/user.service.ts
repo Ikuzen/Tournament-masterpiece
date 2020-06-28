@@ -3,22 +3,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { User } from './user';
 import { Observable } from 'rxjs';
 import { LoginService } from '../login/login.service';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   httpOptions: { headers: HttpHeaders }
-  constructor(private http: HttpClient, private loginService: LoginService) {
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private loginService: LoginService) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${loginService.getToken()}`
+        Authorization: `Bearer ${this.localStorageService.getToken()}`
       })
     };
   }
 
   create(user: User) {
-    console.log("test")
     return this.http.post<User>('http://localhost:3000/user', user);
   }
 
