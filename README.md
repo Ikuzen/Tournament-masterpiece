@@ -18,28 +18,32 @@
         * type > docker-compose database
     * Without Docker : 
         * Download  [MongoDB compass](https://www.mongodb.com/download-center/community)
-        * Create a database and a collections with these names
+        * Create a database with the name ``Tournament-Masterpiece``
         * https://i.imgur.com/oCuVvJl.png
-        * ![alt text](https://i.imgur.com/oCuVvJl.png "Step 1 creating DB")
-        * then click on the Users collecion.
+        * ![alt text](https://imgur.com/rQTSka2"Step 1 creating DB")
+        * Click on create Collection, and create 2 collections with the name ``tournaments`` and ``users``
 
 
 
 * run the API
     * Using Docker :
         * open a Command terminal in the project root
-        * type > docker-compose database
+        * type ``` docker-compose database ```
     * Without Docker: 
         * open a Command terminal in the project /back directory
         * Type :
-        * >npm install
-        * >npm run dev
-        * it will open a server on localhost:3000
+         ```cmd
+         npm install 
+         npm run dev
+         ```
+          it will open a server on localhost:3000
 
 * run the frontend
     * open a Command terminal in the project /app directory
-    * > npm install
-    * > ng serve
+    * ```cmd
+         npm install
+         ng serve 
+      ``` 
     * it will open a server on localhost:4200
 
 * Once everything is running, open your navigator in localhost:4200
