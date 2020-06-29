@@ -1,32 +1,45 @@
-Tournament Masterpiece
+# Tournament Masterpiece
+## A Web app, allowing users to create, manage and participate to their own tournaments.
+
+### A singe person fullstack project developped for training purpose.
+
+### The project is using the following stacks : 
+**Angular 9 (frontend)**
+**ExpressJS (API)**
+**MongoDB (database)**
 
 
-Contains :
+## How to use :
+* clone the project
 
-A frontend angular application
-A backend express application (Using mongoDB database)
-HOW TO START THE BACKEND:
+* run the database : 
+    * Using Docker :
+        * open a Command terminal in the project root
+        * type > docker-compose database
+    * Without Docker : 
+        * Download  [MongoDB compass](https://www.mongodb.com/download-center/community)
+        * Create a database and a collections with these names
+        * https://i.imgur.com/oCuVvJl.png
+        * ![alt text](https://i.imgur.com/oCuVvJl.png "Step 1 creating DB")
+        * then click on the Users collecion.
 
-*for the database :
-
-Using Docker :
-docker-compose database
 
 
-*For the backend
-Using Docker :
-docker-compose api
+* run the API
+    * Using Docker :
+        * open a Command terminal in the project root
+        * type > docker-compose database
+    * Without Docker: 
+        * open a Command terminal in the project /back directory
+        * Type :
+        * >npm install
+        * >npm run dev
+        * it will open a server on localhost:3000
 
-Without Docker: 
+* run the frontend
+    * open a Command terminal in the project /app directory
+    * > npm install
+    * > ng serve
+    * it will open a server on localhost:4200
 
-cd back
-npm install
-npm run dev
-it will open a server on localhost:3000
-
-HOW TO START THE FRONT :
-
-cd app
-npm install
-ng serve
-it will open a server on localhost:4200
+* Once everything is running, open your navigator in localhost:4200
