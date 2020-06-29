@@ -20,7 +20,7 @@
         * Download  [MongoDB compass](https://www.mongodb.com/download-center/community)
         * Create a database with the name ``Tournament-Masterpiece``
         * https://i.imgur.com/oCuVvJl.png
-        * ![alt text](https://imgur.com/rQTSka2"Step 1 creating DB")
+        * ![alt text](https://imgur.com/rQTSka2.png "Step 1 creating DB")
         * Click on create Collection, and create 2 collections with the name ``tournaments`` and ``users``
 
 
