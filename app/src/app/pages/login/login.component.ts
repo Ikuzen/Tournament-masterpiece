@@ -6,6 +6,7 @@ import { LoginService } from './login.service';
 import { Credentials } from './login-interfaces'
 import * as action from '../../actions/login-page.actions'
 import { Store } from '@ngrx/store';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -17,14 +18,13 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   private credentials: Credentials;
-  accountCreated = false;
   errorMessage = "";
-  constructor(private router: Router, private store: Store<any>, private route: ActivatedRoute, private userService: UserService, private localStorage: LocalStorageService, private loginService: LoginService
+  constructor(private router: Router, private store: Store<any>, private route: ActivatedRoute, private loginService: LoginService, private toastService: ToastService
   ) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       if (params.success === "true") {
-        this.accountCreated = true;
+        this.toastService.success('Creation successful !', 'You can now login with your account')
       }
     });
 
@@ -34,10 +34,12 @@ export class LoginComponent implements OnInit {
     if (this.username && this.password) {
       this.credentials = { username: this.username, password: this.password }
       this.loginService.login(this.credentials).subscribe((result) => {
-        this.router.navigate(["/user"])
+        this.router.navigate(["/users"])
+        this.toastService.success('successfully logged in', 'Welcome '+ this.username);
       },
         (err) => {
           this.errorMessage = err.error.err;
+          this.toastService.showError('login error', err.error.err);
         });
     }
     else {

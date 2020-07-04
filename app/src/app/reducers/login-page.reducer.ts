@@ -17,7 +17,7 @@ export interface ApplicationState {
 export const initialState: ApplicationState = {
   currentlyLoading: false,
   currentUser: {
-    username: "unknown",
+    username: "",
     role: "guest"
   },
   tournamentList: [],

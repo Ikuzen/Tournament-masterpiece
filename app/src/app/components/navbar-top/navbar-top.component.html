@@ -1,5 +1,8 @@
+<p-toast position="top-center" key="tc"></p-toast>
+
 <p-menubar [model]="items">
     <div>
+        <button pButton label="accueil" style="margin-left:.25em" (click)="navigate('/')"></button>
         <button pButton *ngIf="(_user$ | async)?.username" [label]="(_user$ | async)?.username" style="margin-left:.25em"></button>
         <button  *ngIf="(_user$ | async)?.role === 'guest'" pButton label="Register" style="margin-left:.25em"(click)="navigate('/register')"></button>
         <button pButton label="Users" style="margin-left:.25em" (click)="navigate('/users')"></button>

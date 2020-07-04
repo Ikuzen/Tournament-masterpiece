@@ -7,6 +7,7 @@ import { MenuModule } from 'primeng/menu';
 import {ButtonModule} from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -20,7 +21,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MenuModule,
     MenubarModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    ToastModule
   ],
   exports:[
     NavbarTopComponent,

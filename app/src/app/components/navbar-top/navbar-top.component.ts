@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { LoginService } from 'src/app/pages/login/login.service';
 import { Store, select } from '@ngrx/store';
-import { userSelector, ApplicationState } from 'src/app/reducers/login-page.reducer';
+import { userSelector } from 'src/app/reducers/login-page.reducer';
 import { Observable, BehaviorSubject, from } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 

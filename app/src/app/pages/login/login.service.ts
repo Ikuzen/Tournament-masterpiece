@@ -7,13 +7,14 @@ import { Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as action from '../../actions/login-page.actions'
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   token: string;
-  constructor(private readonly store: Store, private router: Router, private route: ActivatedRoute, private http: HttpClient, private localStorageService: LocalStorageService) {
+  constructor(private readonly store: Store, private router: Router, private route: ActivatedRoute, private http: HttpClient, private localStorageService: LocalStorageService, private toastService: ToastService) {
   }
 
   login(credentials: Credentials) {
@@ -47,6 +48,7 @@ export class LoginService {
       })
     )
     this.router.navigate(["/main"]);
+    this.toastService.success('successfully logged out', 'goodbye')
   }
 
   checkToken() {
@@ -73,7 +75,7 @@ export class LoginService {
     }
     else {
       return {
-        username: "unknown",
+        username: "",
         role: "guest"
       }
     }
