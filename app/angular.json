@@ -91,9 +91,6 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "sass/styles.scss"
-            ],
             "scripts": []
           }
         },
