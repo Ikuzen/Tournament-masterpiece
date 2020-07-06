@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test --include='**/someFolder/*.spec.ts'",
+    "test": "ng test",
+    "run-test": "run-test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
