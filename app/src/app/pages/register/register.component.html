@@ -1,36 +1,23 @@
-<div id="login-form">
+<div id="register-form">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h3 class="first">Register</h3>
-    <div class="p-grid ui-fluid login-form-group">
+    <div class="p-grid ui-fluid register-form-group">
         <div class="p-col-12 p-md-4">
             <!-- username -->
             <div class="ui-inputgroup p-col-12 p-md-4">
                 <span class=" ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-                <input name="name" [(ngModel)]="username" required minlength="4" required maxlength="30" type="text"
-                    pInputText placeholder="Username" #name="ngModel">
-                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
-                    <div class="error" *ngIf="name.errors.required">
-                        Name is required.
-                    </div>
-                    <div class="error" *ngIf="name.errors.minlength">
-                        Name must be at least 4 characters long.
-                    </div>
-                    <div class="error" *ngIf="name.errors.maxlength">
-                        Name must be at under 30 characters long.
-                    </div>
-                </div>
-                <div class="error" *ngIf="usernameError">
-                    {{usernameError}}
-                </div>
+                <input name="name" required minlength="4" required maxlength="30" type="text"
+                    pInputText placeholder="Username" formControlName="username" mat-raised-button #tooltip="matTooltip"
+                    matTooltip="Info about the action"
+                    matTooltipPosition="right"
+                    aria-tooltip="Button that displays and hides a tooltip triggered by other buttons">
             </div>
           
             <!-- email -->
             <div class="p-col-12 p-md-4">
                 <div class="ui-inputgroup">
                     <span class="ui-inputgroup-addon">@</span>
-                    <input [(ngModel)]="email" type="text" pInputText placeholder="Email">
-                </div>
-                <div class="error" *ngIf="emailError">
-                    {{emailError}}
+                    <input type="text" pInputText placeholder="Email" formControlName="email">
                 </div>
             </div>
 
@@ -38,30 +25,15 @@
             <div class="p-col-12 p-md-4">
                 <div class="ui-inputgroup">
                     <span class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></span>
-                    <input [(ngModel)]="birthdate" type="date" pInputText placeholder="birthdate">
-                </div>
-                <div class="error" *ngIf="birthDateError">
-                    {{birthDateError}}
+                    <input type="date" pInputText placeholder="birthdate" formControlName="birthdate">
                 </div>
             </div>
               <!-- password -->
               <div class="p-col-12 p-md-4">
                 <div class="ui-inputgroup">
                     <span class="ui-inputgroup-addon"><i class="pi pi-lock"></i></span>
-                    <input [(ngModel)]="password" type="password" required minlength="7" required maxlength="30"
-                        #pass="ngModel" pInputText placeholder="Password">
-                    <div *ngIf="pass.invalid && (pass.dirty || pass.touched)" class="alert alert-danger">
-
-                        <div class="error" *ngIf="pass.errors.minlength">
-                            password must be at least 7 characters long.
-                        </div>
-                        <div class="error" *ngIf="pass.errors.maxlength">
-                            password must be at most 30 characters long.
-                        </div>
-                        <div class="error" *ngIf="passwordError">
-                            {{passwordError}}
-                        </div>
-                    </div>
+                    <input type="password" required minlength="7" required maxlength="30"
+                         pInputText placeholder="Password" formControlName="password">
                 </div>
             </div>
 
@@ -69,15 +41,13 @@
               <div class="p-col-12 p-md-4">
                 <div class="ui-inputgroup">
                     <span class="ui-inputgroup-addon"><i class="pi pi-lock"></i></span>
-                    <input [(ngModel)]="passwordBis" type="password"
-                        #pass="ngModel" pInputText placeholder="Password confirmation">
+                    <input type="password"
+                         pInputText placeholder="Password confirmation" formControlName="passwordBis">
                     </div>
                 </div>
             </div>
         </div>
-
-        <div style="color: red;"> {{generalError}}</div>
-
-        <button pButton type="button" label="Create account" (click)="submit()"></button>
-
+        <button pButton label="tooltip" (click)="tooltip.toggle()"></button>
+        <button pButton type="submit" label="Create account"></button>
+    </form>
     </div>

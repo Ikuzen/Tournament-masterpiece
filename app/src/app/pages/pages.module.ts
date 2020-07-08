@@ -24,8 +24,9 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ToastService } from '../shared/services/toast.service';
 import {ToastModule} from 'primeng/toast';
 import { SharedModule } from '../shared/shared.module';
-import {TreeNode} from 'primeng/api';
-
+import {TooltipModule} from 'primeng/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -43,6 +44,9 @@ import {TreeNode} from 'primeng/api';
     InputTextModule,
     ToastModule,
     SharedModule,
+    TooltipModule,
+    ReactiveFormsModule,
+    MatTooltipModule
   ],
   providers:[LocalStorageService, UtilService, ToastService],
   exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent]
