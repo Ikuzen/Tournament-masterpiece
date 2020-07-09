@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../users/user.service';
 import { User } from '../users/user';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatTooltip } from '@angular/material/tooltip';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,6 +11,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 })
 export class RegisterComponent implements OnInit {
+@ViewChild('tooltipUsername') tooltipUsername: MatTooltip
+
   registerForm = new FormGroup({
     username: new FormControl('', [
       Validators.required,
@@ -34,6 +37,7 @@ export class RegisterComponent implements OnInit {
   get email() {return this.registerForm.value.email;}
   get birthdate() {return this.registerForm.value.birthdate;}
   user: User;
+
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
@@ -56,7 +60,6 @@ export class RegisterComponent implements OnInit {
             },
               (error) => {
                 if (error.status) {
-                  console.log(error)
                 }
                 else if (error?.error?.details[0]?.message === '"email" must be a valid email') {
                 }
@@ -67,5 +70,9 @@ export class RegisterComponent implements OnInit {
     }
     else {
     }
+  }
+
+  showErrors(errorName){
+    console.log(this.registerForm.get(errorName).errors)
   }
 }

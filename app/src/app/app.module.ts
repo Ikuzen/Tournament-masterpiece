@@ -12,11 +12,12 @@ import { PagesModule } from './pages/pages.module';
 import { reducer } from './reducers/login-page.reducer';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastModule } from 'primeng/toast';
 import { SharedModule } from './shared/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -27,6 +27,8 @@ import { SharedModule } from '../shared/shared.module';
 import {TooltipModule} from 'primeng/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 
 @NgModule({
@@ -46,7 +48,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     SharedModule,
     TooltipModule,
     ReactiveFormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatFormFieldModule
   ],
   providers:[LocalStorageService, UtilService, ToastService],
   exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent]

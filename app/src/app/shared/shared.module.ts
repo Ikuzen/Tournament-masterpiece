@@ -4,12 +4,14 @@ import { BracketTreeComponent } from './components/bracket-tree/bracket-tree.com
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 import { ButtonModule } from 'primeng/button';
+import { ValidationErrorComponent } from './validation/validation-error/validation-error.component';
 
 
 
 @NgModule({
   declarations: [
-    BracketTreeComponent
+    BracketTreeComponent,
+    ValidationErrorComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import { ButtonModule } from 'primeng/button';
   exports:[
     BracketTreeComponent,
     ToastModule,
+    ValidationErrorComponent
   ]
 })
 export class SharedModule { }

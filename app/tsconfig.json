@@ -28,6 +28,7 @@
       "@models/*": ["./src/app/shared/models/*"],
       "@pages/*": ["./src/app/pages/*"],
       "@services/*": ["./src/app/shared/services/*"],
+      "@reducers/*":["./src/app/reducers/*"]
     }
   },
   "angularCompilerOptions": {
