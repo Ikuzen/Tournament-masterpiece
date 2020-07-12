@@ -5,6 +5,7 @@ import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 import { ButtonModule } from 'primeng/button';
 import { ValidationErrorComponent } from './validation/validation-error/validation-error.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -17,7 +18,8 @@ import { ValidationErrorComponent } from './validation/validation-error/validati
     CommonModule,
     ToastModule,
     TreeModule,
-    ButtonModule
+    ButtonModule,
+    MatTooltipModule
   ],
   exports:[
     BracketTreeComponent,

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../users/user.service';
 import { User } from '../users/user';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
 @Component({
   selector: 'app-register',
@@ -11,47 +11,52 @@ import { MatTooltip } from '@angular/material/tooltip';
 
 })
 export class RegisterComponent implements OnInit {
-@ViewChild('tooltipUsername') tooltipUsername: MatTooltip
-
-  registerForm = new FormGroup({
-    username: new FormControl('', [
+  registerForm = this.fb.group({
+    username: ['', [
       Validators.required,
-      Validators.minLength(4)]),
-    password: new FormControl('', [
+      Validators.minLength(4)]
+    ],
+    password: ['', [
       Validators.required,
-      Validators.minLength(4)]),
-    passwordBis: new FormControl('', [
+      Validators.minLength(4)]
+    ],
+    passwordBis: ['', [
       Validators.required,
-      Validators.minLength(4)]),
-    email: new FormControl('', [
+      Validators.minLength(4)]
+    ],
+    email: ['', [
       Validators.required,
-      Validators.email]),
-    birthdate: new FormControl('',
-      [
-        Validators.required
-      ]),
+      Validators.email]
+    ],
+    birthdate: ['', [
+        Validators.required]
+    ]
   });
-  get username() {return this.registerForm.value.username;}
-  get password() {return this.registerForm.value.password;}
-  get passwordBis() {return this.registerForm.value.passwordBis;}
-  get email() {return this.registerForm.value.email;}
-  get birthdate() {return this.registerForm.value.birthdate;}
   user: User;
-
-  constructor(private userService: UserService, private router: Router) { }
+  get username() {return this.registerForm.value.username; }
+  get password() {return this.registerForm.value.password; }
+  get passwordBis() {return this.registerForm.value.passwordBis; }
+  get email() {return this.registerForm.value.email; }
+  get birthdate() {return this.registerForm.value.birthdate; }
+  get usernameError() {return this.registerForm.controls.username.errors; }
+  get passwordError() {return this.registerForm.controls.username.errors; }
+  get passwordBisError() {return this.registerForm.controls.username.errors; }
+  get emailError() {return this.registerForm.controls.username.errors; }
+  get birthdateError() {return this.registerForm.controls.username.errors; }
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
     if (
-      this.username &&
-      this.password &&
-      this.email &&
-      this.birthdate &&
-      this.passwordBis &&
+      this.username && !this.usernameError &&
+      this.password && !this.passwordError &&
+      this.email && !this.emailError &&
+      this.birthdate && !this.birthdateError &&
+      this.passwordBis && !this.passwordBisError &&
       (this.password === this.passwordBis)) {
-      this.user = { 'username': this.username, 'password': this.password, 'email': this.email, 'birthdate': this.birthdate }
+      this.user = { username: this.username, password: this.password, email: this.email, birthdate: this.birthdate };
       this.userService.getByName(this.username)
         .subscribe(
           (result) => {
@@ -60,19 +65,31 @@ export class RegisterComponent implements OnInit {
             },
               (error) => {
                 if (error.status) {
-                }
-                else if (error?.error?.details[0]?.message === '"email" must be a valid email') {
+                  console.log(error);
+                } else if (error?.error?.details[0]?.message === '"email" must be a valid email') {
                 }
               });
-          })
-    }
-    else if (this.passwordBis !== this.password) {
-    }
-    else {
+          });
+    } else {
+      if (this.passwordBis !== this.password) {
+        console.log('password not matching');
+      }
+      if (!(this.username &&
+        this.password &&
+        this.email &&
+        this.birthdate &&
+        this.passwordBis)) {
+        console.log(this.usernameError);
+        console.log(this.passwordError);
+        console.log(this.emailError);
+        console.log(this.birthdateError);
+        console.log(this.passwordBisError);
+        }
     }
   }
 
-  showErrors(errorName){
-    console.log(this.registerForm.get(errorName).errors)
+  showErrors(errorName) {
+    console.log(this.registerForm.get(errorName).errors);
+    console.log();
   }
 }

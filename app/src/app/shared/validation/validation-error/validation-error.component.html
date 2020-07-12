@@ -1,5 +1,6 @@
-<ng-container *ngIf="errors && errors['required']"> Field required</ng-container>
+<ng-container *ngIf="errors && errors['required']" matTooltip="field required" #tooltip="matTooltip"></ng-container>
 <ng-container *ngIf="errors && errors['notUnique']">Already exists</ng-container>
 <ng-container *ngIf="errors && errors['email']">Please enter a valid email</ng-container>
 <ng-container *ngIf="errors && errors['minlength']">Username must be at least 3 characters</ng-container>
 <ng-container *ngIf="errors && errors['maxlength']">Username must be at most 30 characters</ng-container>
+<button (click)="showTooltip()"> tooltip</button>
