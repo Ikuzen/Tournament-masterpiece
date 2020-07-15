@@ -49,7 +49,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     TooltipModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
   providers:[LocalStorageService, UtilService, ToastService],
   exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent]

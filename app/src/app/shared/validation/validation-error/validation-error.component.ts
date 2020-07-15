@@ -19,6 +19,10 @@ export class ValidationErrorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  notSameError(){
+      return this.errors.find((error)=> error.notSame)
+  }
   showTooltip() {
-    this.manualTooltip.show();
+    // this.manualTooltip.show();
+    console.log(this.errors)
   }}
