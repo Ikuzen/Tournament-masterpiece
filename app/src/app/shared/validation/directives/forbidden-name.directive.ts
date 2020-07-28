@@ -1,22 +1,29 @@
 import { Directive, Input } from '@angular/core';
-import { NG_VALIDATORS, Validator, AbstractControl, ValidatorFn } from '@angular/forms';
+import { NG_VALIDATORS, Validator, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { filter } from 'rxjs/internal/operators/filter';
+import { defaultIfEmpty } from 'rxjs/internal/operators/defaultIfEmpty';
+import { map } from 'rxjs/operators';
 
 @Directive({
   selector: '[appForbiddenName]',
-  providers: [{provide: NG_VALIDATORS, useExisting: ForbiddenValidatorDirective, multi: true}]
+  providers: [{ provide: NG_VALIDATORS, useExisting: ForbiddenValidatorDirective, multi: true }]
 })
 export class ForbiddenValidatorDirective implements Validator {
+  validate(control: AbstractControl): ValidationErrors {
+    throw new Error("Method not implemented.");
+  }
+  registerOnValidatorChange?(fn: () => void): void {
+    throw new Error("Method not implemented.");
+  }
   @Input('appForbiddenName') forbiddenName: string;
 
-  validate(control: AbstractControl): {[key: string]: any} | null {
-    return this.forbiddenName ? forbiddenNameValidator(new RegExp(this.forbiddenName, 'i'))(control) : null;
-  }
+
 }
 
-/** A hero's name can't match the given regular expression */
-export function forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} | null => {
-    const forbidden = nameRe.test(control.value);
-    return forbidden ? {forbiddenName: {value: control.value}} : null;
-  };
+export function forbiddenNameValidator(name: string): Observable<{ [key: string]: boolean } | null> {
+  return this.userService.getByName(name).pipe(
+    filter(x => !!x ? null : {forbiddenNameValidator:true}),
+    defaultIfEmpty(null),
+  )
 }

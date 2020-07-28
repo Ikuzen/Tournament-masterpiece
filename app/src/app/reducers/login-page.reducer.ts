@@ -24,7 +24,6 @@ export const initialState: ApplicationState = {
   userList: []
 };
 export const userSelector = createFeatureSelector<ApplicationState>('State');
-// export const userSelector = createSelector(selectUserState, (state: ApplicationState) => state);
 
 const loginPageReducer = createReducer(
   initialState,

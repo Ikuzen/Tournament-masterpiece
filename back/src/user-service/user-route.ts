@@ -1,5 +1,5 @@
 import {UserModel} from './user-model'
-import {jwtMW} from '../secret'
+import {jwtMW, isLoggedIn, isAdmin} from '../secret'
 const exjwt = require('express-jwt');
 
 const express = require('express');
@@ -8,7 +8,7 @@ const userRouter = express.Router();
 userRouter.use(cors({origin: 'http://localhost:4200'}))
 
 //POST
-userRouter.post("/", async (request, response) => {
+userRouter.post("/",  async (request, response) => {
     try {
         const user = new UserModel(request.body);
         const result = await user.save();
@@ -19,7 +19,7 @@ userRouter.post("/", async (request, response) => {
 });
 
 //GET all
-userRouter.get("/", async (request, response) => {
+userRouter.get("/", isLoggedIn, async (request, response) => {
     try {
         const result = await UserModel.find().exec();
         response.send(result);
@@ -30,7 +30,7 @@ userRouter.get("/", async (request, response) => {
 
 //GET by id
 
-userRouter.get("/:id", async (request, response) => {
+userRouter.get("/:id", isLoggedIn, async (request, response) => {
     try {
         const user = await UserModel.findById(request.params.id).exec();
         response.send(user);
@@ -41,7 +41,7 @@ userRouter.get("/:id", async (request, response) => {
 
 
 //GET by username
-userRouter.get("/username/:username", async (request, response) => {
+userRouter.get("/username/:username", isLoggedIn,  async (request, response) => {
     try {
         const user = await UserModel.find({ username: new RegExp(`^${request.params.username}$`) }).exec();
         response.send(user);
@@ -52,7 +52,7 @@ userRouter.get("/username/:username", async (request, response) => {
 
 //UPDATE by id
 
-userRouter.put("/:id", async (request, response) => {
+userRouter.put("/:id", isLoggedIn, async (request, response) => {
     try {
         const user = await UserModel.findById(request.params.id).exec();
         user.set(request.body);
@@ -64,7 +64,7 @@ userRouter.put("/:id", async (request, response) => {
 });
 //DELETE by id
 
-userRouter.delete("/:id", 
+userRouter.delete("/:id", isLoggedIn, 
     async (request, response) => {
     try {
         const result = await UserModel.deleteOne({ _id: request.params.id }).exec();
@@ -74,7 +74,7 @@ userRouter.delete("/:id",
     }
 });
 //DELETE ALL
-userRouter.delete("/", async (request, response) => {
+userRouter.delete("/", isAdmin, async (request, response) => {
     try {
         const result = await UserModel.deleteMany().exec();
         response.send(result);

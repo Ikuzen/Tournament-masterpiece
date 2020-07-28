@@ -11,8 +11,6 @@ import { MatTooltip } from '@angular/material/tooltip';
 
 })
 export class ValidationErrorComponent implements OnInit {
-  @ViewChild('tooltip') manualTooltip: MatTooltip;
-
   @Input() errors: ValidationErrors;
   constructor() { }
 
@@ -22,7 +20,7 @@ export class ValidationErrorComponent implements OnInit {
   notSameError(){
       return this.errors.find((error)=> error.notSame)
   }
-  showTooltip() {
-    // this.manualTooltip.show();
-    console.log(this.errors)
-  }}
+  forbiddenNameError(){
+      return this.errors.find((error)=> error.forbiddenNameError)
+  }
+}
