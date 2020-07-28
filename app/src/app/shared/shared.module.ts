@@ -6,8 +6,6 @@ import { TreeModule } from 'primeng/tree';
 import { ButtonModule } from 'primeng/button';
 import { ValidationErrorComponent } from './validation/validation-error/validation-error.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { ForbiddenValidatorDirective } from './validation/directives/forbidden-name.directive';
-import { PasswordMatchDirective } from './validation/directives/password-match.directive';
 
 
 
@@ -15,8 +13,6 @@ import { PasswordMatchDirective } from './validation/directives/password-match.d
   declarations: [
     BracketTreeComponent,
     ValidationErrorComponent,
-    ForbiddenValidatorDirective,
-    PasswordMatchDirective
   ],
   imports: [
     CommonModule,
