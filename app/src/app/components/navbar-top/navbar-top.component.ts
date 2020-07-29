@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { LoginService } from 'src/app/pages/login/login.service';
 import { Store, select } from '@ngrx/store';
-import { userSelector, ApplicationState } from 'src/app/reducers/login-page.reducer';
+import { userSelector } from 'src/app/reducers/login-page.reducer';
 import { Observable, BehaviorSubject, from } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import * as fromAuth from '@reducers/login-page.reducer';
 
 @Component({
   selector: 'app-navbar-top',
@@ -16,7 +17,7 @@ import { take, tap } from 'rxjs/operators';
 export class NavbarTopComponent implements OnInit {
 
   items: MenuItem[];
-  constructor(private router: Router, private localStorageService: LocalStorageService, private loginService: LoginService, private readonly store: Store) {
+  constructor(private router: Router, private localStorageService: LocalStorageService, private loginService: LoginService, private readonly store: Store<fromAuth.ApplicationState>) {
   }
   private user$: BehaviorSubject<{ username?: string, role?: string }> = new BehaviorSubject(this.loginService.getUserFromToken(this.localStorageService.getToken()));
 

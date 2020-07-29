@@ -9,7 +9,6 @@ import { TournamentListComponent } from './tournaments/tournament-list/tournamen
 import { TournamentDetailComponent } from './tournaments/tournament-detail/tournament-detail.component';
 import { MainComponent } from './main/main.component';
 import { TreeModule } from 'primeng/tree';
-import { BracketTreeComponent } from '../shared/components/bracket-tree/bracket-tree.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -22,11 +21,19 @@ import { MenubarModule } from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ToastService } from '../shared/services/toast.service';
+import {ToastModule} from 'primeng/toast';
+import { SharedModule } from '../shared/shared.module';
+import {TooltipModule} from 'primeng/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { ValidationErrorsService } from '../shared/validation/services/validation-errors.service';
 
 
 
 @NgModule({
-  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, BracketTreeComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent],
+  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent],
   imports: [
     CommonModule,
     CarouselModule,
@@ -37,10 +44,15 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     MenuModule,
     MenubarModule,
     ButtonModule,
-    InputTextModule
-
+    InputTextModule,
+    ToastModule,
+    SharedModule,
+    TooltipModule,
+    ReactiveFormsModule,
+    MatTooltipModule,
+    MatFormFieldModule,
   ],
-  providers:[LocalStorageService, UtilService],
-  exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, BracketTreeComponent]
+  providers:[LocalStorageService, UtilService, ToastService, ValidationErrorsService],
+  exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent]
 })
 export class PagesModule { }

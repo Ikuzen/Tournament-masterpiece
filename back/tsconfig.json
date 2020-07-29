@@ -3,8 +3,15 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "build",
-    "strict": false
+    "strict": false,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
   },
+  "lib": [
+    "es2018",
+    "DOM"
+  ],
   "include": [
     "src/**/*.ts",
     "test/**/*.ts"

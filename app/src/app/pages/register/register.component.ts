@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../users/user.service';
 import { User } from '../users/user';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { MatTooltip } from '@angular/material/tooltip';
+import { ValidationErrorsService } from '../../shared/validation/services/validation-errors.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -9,48 +12,60 @@ import { User } from '../users/user';
 
 })
 export class RegisterComponent implements OnInit {
-  username: string;
-  password: string;
-  passwordBis: string;
-  email: string;
-  birthdate: Date;
-  usernameError = "";
-  passwordError = "";
-  emailError = "";
-  birthDateError = "";
-  generalError= "";
+  registerForm = this.fb.group({
+    username: ['', [
+      Validators.required,
+      Validators.minLength(4)],
+      [this.validation.forbiddenNameValidator()]
+    ],
+    password: ['', [
+      Validators.required,
+      Validators.minLength(4)]
+    ],
+    confirmPassword: ['', [
+      Validators.required,
+    ]
+    ],
+    email: ['', [
+      Validators.required,
+      Validators.email]
+    ],
+    birthdate: ['', [
+      Validators.required]
+    ],
+  }, { validator: this.validation.passwordConfirming });
   user: User;
-  constructor(private userService: UserService, private router: Router) { }
+  get username() { return this.registerForm.value.username; }
+  get password() { return this.registerForm.value.password; }
+  get confirmPassword() { return this.registerForm.value.confirmPassword; }
+  get email() { return this.registerForm.value.email; }
+  get birthdate() { return this.registerForm.value.birthdate; }
+
+  constructor(private userService: UserService, private router: Router, private fb: FormBuilder, private validation: ValidationErrorsService) { }
 
   ngOnInit(): void {
   }
 
-  submit() {
-    this.generalError = "";
-    if (this.username && this.password && this.email && this.birthdate && this.passwordBis && (this.password === this.passwordBis)) {
-      this.user = { 'username': this.username, 'password': this.password, 'email': this.email, 'birthdate': this.birthdate }
-      this.userService.getByName(this.username)
-      .subscribe(
-        (result) => {
-            this.userService.create(this.user).subscribe((result) => {
-              this.router.navigate(['/login', { success: true }]);
-            },
-            (error) => {
-              if (error.status) {
-                this.usernameError = 'There already is a user with that username';
-                console.log(error)
-              }
-              else if (error?.error?.details[0]?.message === '"email" must be a valid email') {
-                this.emailError = '"email" must be a valid email';
-              }
-            });
-          })
+  register() {
+    if (
+      this.registerForm.valid) {
+      this.user = { username: this.username, password: this.password, email: this.email, birthdate: this.birthdate };
+      this.userService.create(this.user).subscribe((result) => {
+        this.router.navigate(['/login', { success: true }]);
+      },
+        (error) => {
+          if (error.status) {
+            console.log(error);
+          }
+        });
     }
-    else if(this.passwordBis !== this.password){
-      this.generalError = "passwords are not matching"
-    }
-    else{
-      this.generalError = "fields are missing"
-    }
+  }
+
+  showErrors(errorName) {
+    console.log(this.registerForm.get(errorName).errors);
+    console.log();
+  }
+  showFormValidity(){
+    console.log(this.registerForm)
   }
 }

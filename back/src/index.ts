@@ -22,15 +22,15 @@ fs.readFile('./keys/private.pem',(err,data)=>{
     privateKey = data;
 })
 
-const unprotected = [
-    {url: /\/login*/, methods: ['GET', 'PUT', 'POST']},
-    {url: /\/token*/, methods: ['GET', 'PUT', 'POST']},
-    {url: /\/user*/, methods: ['GET', 'PUT', 'POST']}
-]
+// const unprotected = [
+//     {url: /\/login*/, methods: ['GET', 'PUT', 'POST']},
+//     {url: /\/token*/, methods: ['GET', 'PUT', 'POST']},
+//     {url: /\/user*/, methods: ['GET', 'PUT', 'POST']}
+// ]
 app.use(cors())
 app.use(BodyParser.json());
 app.use(cors()); 
-app.use((jwtMW).unless({path: unprotected}));
+// app.use((jwtMW).unless({path: unprotected}));
 app.use('/token', tokenRoute)
 app.use('/login', loginRoute)
 app.use('/user',userRoute)

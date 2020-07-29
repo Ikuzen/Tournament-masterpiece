@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent },
   {path: 'login', component: LoginComponent },
   {path: 'users', component: UserListComponent, canActivate:[AuthGuard]},
-  {path: 'forbidden*',   component: ForbiddenComponent},
+  {path: 'forbidden',   component: ForbiddenComponent},
   {path: '**',   component: NotFoundComponent}
 ];
 

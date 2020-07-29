@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserListComponent } from './user-list.component';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from '@tn/src/app/reducers/login-page.reducer';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MessageService } from 'primeng/api';
 
 describe('UserListComponent', () => {
   let component: UserListComponent;
@@ -8,7 +13,15 @@ describe('UserListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserListComponent ]
+      declarations: [ UserListComponent ],
+      imports:[
+        StoreModule.forRoot({State: reducer}),
+        RouterTestingModule,
+        HttpClientTestingModule,
+      ],
+      providers:[
+        MessageService
+      ]
     })
     .compileComponents();
   }));

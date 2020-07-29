@@ -6,6 +6,9 @@ import { LoginService } from './login.service';
 import { Credentials } from './login-interfaces'
 import * as action from '../../actions/login-page.actions'
 import { Store } from '@ngrx/store';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -14,30 +17,33 @@ import { Store } from '@ngrx/store';
 
 })
 export class LoginComponent implements OnInit {
-  username: string;
-  password: string;
+ loginForm = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl('')
+  })
   private credentials: Credentials;
-  accountCreated = false;
   errorMessage = "";
-  constructor(private router: Router, private store: Store<any>, private route: ActivatedRoute, private userService: UserService, private localStorage: LocalStorageService, private loginService: LoginService
+  constructor(private router: Router, private store: Store<any>, private route: ActivatedRoute, private loginService: LoginService, private toastService: ToastService
   ) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       if (params.success === "true") {
-        this.accountCreated = true;
+        this.toastService.success('Creation successful !', 'You can now login with your account')
       }
     });
 
   }
-  login() {
+  onSubmit() {
     this.resetErrorMessage();
-    if (this.username && this.password) {
-      this.credentials = { username: this.username, password: this.password }
-      this.loginService.login(this.credentials).subscribe((result) => {
-        this.router.navigate(["/user"])
+    if (this.loginForm.value.username && this.loginForm.value.password) {
+      this.credentials = { username: this.loginForm.value.username, password: this.loginForm.value.password }
+      this.loginService.login(this.credentials).pipe(take(1)).subscribe((result) => {
+        this.router.navigate(["/users"])
+        this.toastService.success('successfully logged in', 'Welcome '+ this.loginForm.value.username);
       },
         (err) => {
           this.errorMessage = err.error.err;
+          this.toastService.showError('login error', err.error.err);
         });
     }
     else {

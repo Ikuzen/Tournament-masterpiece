@@ -4,22 +4,28 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { StoreModule, combineReducers } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { reducer } from './reducers/login-page.reducer';
+import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ComponentsModule,
     PagesModule,
+    SharedModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({
       State: reducer
     }),
@@ -29,7 +35,8 @@ import { reducer } from './reducers/login-page.reducer';
     }),
   ],
     
-  providers: [],
+  providers: [MessageService],
+  exports:[],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

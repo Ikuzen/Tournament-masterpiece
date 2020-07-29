@@ -1,22 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TournamentService } from './tournament.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastService } from './toast.service';
 import { MessageService } from 'primeng/api';
 
-describe('TournamentService', () => {
-  let service: TournamentService;
+describe('ToastService', () => {
+  let service: ToastService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports:[
-        HttpClientTestingModule,
+
       ],
       providers:[
         MessageService
       ]
     });
-    service = TestBed.inject(TournamentService);
+    service = TestBed.inject(ToastService);
   });
 
   it('should be created', () => {
