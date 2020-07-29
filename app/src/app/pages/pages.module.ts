@@ -28,6 +28,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ValidationErrorsService } from '../shared/validation/services/validation-errors.service';
 
 
 
@@ -51,7 +52,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatTooltipModule,
     MatFormFieldModule,
   ],
-  providers:[LocalStorageService, UtilService, ToastService],
+  providers:[LocalStorageService, UtilService, ToastService, ValidationErrorsService],
   exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent]
 })
 export class PagesModule { }

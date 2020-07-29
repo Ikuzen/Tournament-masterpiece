@@ -9,7 +9,7 @@
                 <input name="name" type="text"
                     pInputText placeholder="Username" 
                     formControlName="username">
-                    <mat-error *ngIf="registerForm.get('username').touched && registerForm.get('username').status === 'INVALID'">
+                    <mat-error *ngIf="registerForm.get('username').touched && registerForm.get('username').dirty && registerForm.get('username').status === 'INVALID'">
                         <validation-error [errors]="registerForm.get('username').errors"></validation-error>   
                     </mat-error>    
             </div>
@@ -30,7 +30,7 @@
                 <div class="ui-inputgroup">
                     <span class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></span>
                     <input type="date" pInputText placeholder="birthdate" formControlName="birthdate">
-                    <mat-error *ngIf="registerForm.get('birthdate').touched && registerForm.get('birthdate').status === 'INVALID'">
+                    <mat-error *ngIf="registerForm.get('birthdate').touched && registerForm.get('birthdate').dirty && registerForm.get('birthdate').status === 'INVALID'">
                         <validation-error [errors]="registerForm.get('birthdate').errors"></validation-error>      
                     </mat-error>   
                 </div>
@@ -41,7 +41,7 @@
                     <span class="ui-inputgroup-addon"><i class="pi pi-lock"></i></span>
                     <input type="password" required minlength="4" required maxlength="30"
                          pInputText placeholder="Password" formControlName="password">
-                    <mat-error *ngIf="registerForm.get('password').touched && registerForm.get('password').status === 'INVALID'">
+                    <mat-error *ngIf="registerForm.get('password').touched && registerForm.get('password').dirty && registerForm.get('password').status === 'INVALID'">
                         <validation-error [errors]="registerForm.get('password').errors"></validation-error>      
                     </mat-error>   
                 </div>
@@ -60,7 +60,7 @@
             </div>
         </div>
     </div>
-    <button pButton label="tooltip" (click)="showErrors('username')"></button>
+    <button pButton label="tooltip" (click)="showFormValidity()"></button>
     <button pButton type="submit" [disabled]="!registerForm.valid" label="Create account"></button>
 </form>
 </div>
