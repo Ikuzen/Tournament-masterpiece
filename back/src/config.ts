@@ -1,13 +1,31 @@
+import { config } from 'dotenv';
+import * as path from 'path';
 
-export const dbConfigTournament = {
-    mongodbUrl: 'mongodb+srv://Ikuzen:HBBM5uidbQKLkXRX@cluster0-7rybn.mongodb.net/test',
-    dbName: 'TournamentDB',
-    collectionName: 'tournaments'
-}
-export const dbConfigUser = {
-    mongodbUrl: 'mongodb+srv://Ikuzen:HBBM5uidbQKLkXRX@cluster0-7rybn.mongodb.net/test',
-    dbName: 'TournamentDB',
-    collectionName: 'users',
+config({
+    path: path.resolve('../.env'),
+});
+
+function env(name: string): string {
+    const value = process.env[name]?.trim();
+
+    if (!value) {
+        throw new Error(`Environment variable "${ name }" must be defined`);
+    }
+
+    return value;
 }
 
-export const uri = 'mongodb://localhost:27017'
+export let uri: string;
+
+uri = process.env['TOURNAMENT_MONGO_URL']?.trim();
+
+if (!uri) {
+    const username = env('TOURNAMENT_MONGO_USERNAME');
+    const password = env('TOURNAMENT_MONGO_PASSWORD');
+    const database = env('TOURNAMENT_MONGO_DATABASE');
+    const protocol = env('TOURNAMENT_MONGO_PROTOCOL');
+    const host = env('TOURNAMENT_MONGO_HOST');
+
+    uri = `${ protocol }://${ username }:${ password }@${ host }/${ database }`;
+}
+export const allowedOrigins = [ 'http://localhost:3000', 'http://localhost:4200' ];

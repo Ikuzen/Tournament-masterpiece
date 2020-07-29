@@ -1,0 +1,27 @@
+#login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .login-form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  button:hover {
+    cursor: pointer;
+  }
+
+  .error {
+    min-width: max-content;
+  }
+
+  .button-group {
+    display: flex;
+    flex-direction: row;
+    button{
+        margin-left: 10px;
+    }
+  }
+}

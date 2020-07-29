@@ -1,11 +1,14 @@
 import {UserModel} from './user-model'
-import {jwtMW} from '../secret'
+import {jwtMW, isLoggedIn, isAdmin} from '../secret'
 const exjwt = require('express-jwt');
 
 const express = require('express');
+const cors = require('cors')
 const userRouter = express.Router();
+userRouter.use(cors({origin: 'http://localhost:4200'}))
 
-userRouter.post("/", async (request, response) => {
+//POST
+userRouter.post("/",  async (request, response) => {
     try {
         const user = new UserModel(request.body);
         const result = await user.save();
@@ -14,7 +17,9 @@ userRouter.post("/", async (request, response) => {
         response.status(500).send(error);
     }
 });
-userRouter.get("/", async (request, response) => {
+
+//GET all
+userRouter.get("/", isLoggedIn, async (request, response) => {
     try {
         const result = await UserModel.find().exec();
         response.send(result);
@@ -22,7 +27,10 @@ userRouter.get("/", async (request, response) => {
         response.status(404).send(`users not found`);
     }
 });
-userRouter.get("/:id", async (request, response) => {
+
+//GET by id
+
+userRouter.get("/:id", isLoggedIn, async (request, response) => {
     try {
         const user = await UserModel.findById(request.params.id).exec();
         response.send(user);
@@ -31,16 +39,20 @@ userRouter.get("/:id", async (request, response) => {
     }
 });
 
-userRouter.get("/username/:username", async (request, response) => {
+
+//GET by username
+userRouter.get("/username/:username", isLoggedIn,  async (request, response) => {
     try {
-        const user = await UserModel.findById(request.params.id).exec();
+        const user = await UserModel.find({ username: new RegExp(`^${request.params.username}$`) }).exec();
         response.send(user);
     } catch (error) {
-        response.status(404).send(`user ${request.params.username}not found`);
+        response.status(500).send(error);
     }
 });
 
-userRouter.put("/:id", async (request, response) => {
+//UPDATE by id
+
+userRouter.put("/:id", isLoggedIn, async (request, response) => {
     try {
         const user = await UserModel.findById(request.params.id).exec();
         user.set(request.body);
@@ -50,14 +62,24 @@ userRouter.put("/:id", async (request, response) => {
         response.status(404).send(`user ${request.params.id}not found`);
     }
 });
+//DELETE by id
 
-userRouter.delete("/:id", 
+userRouter.delete("/:id", isLoggedIn, 
     async (request, response) => {
     try {
         const result = await UserModel.deleteOne({ _id: request.params.id }).exec();
         response.send(result);
     } catch (error) {
         response.status(404).send(`tournament ${request.params.id}not found`);
+    }
+});
+//DELETE ALL
+userRouter.delete("/", isAdmin, async (request, response) => {
+    try {
+        const result = await UserModel.deleteMany().exec();
+        response.send(result);
+    } catch (error) {
+        response.status(500).send(error);
     }
 });
 

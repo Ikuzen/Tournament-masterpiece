@@ -5,12 +5,12 @@ import {jwtMW} from './secret'
 const userRoute = require('./user-service/user-route')
 const tournamentRoute = require('./tournament-service/tournament-route')
 const loginRoute = require('./login/login-route')
+const tokenRoute = require('./token-route/token-route')
 const cors = require('cors')
 const mongoose = require('mongoose');
 const fs = require('fs')
 
-
-mongoose.connect(config.uri+'/TournamentDB');
+mongoose.connect(config.uri, {useNewUrlParser:true});
 
 const db = mongoose.connection
 const log = debug('tn:express');
@@ -22,10 +22,16 @@ fs.readFile('./keys/private.pem',(err,data)=>{
     privateKey = data;
 })
 
-
+// const unprotected = [
+//     {url: /\/login*/, methods: ['GET', 'PUT', 'POST']},
+//     {url: /\/token*/, methods: ['GET', 'PUT', 'POST']},
+//     {url: /\/user*/, methods: ['GET', 'PUT', 'POST']}
+// ]
+app.use(cors())
 app.use(BodyParser.json());
 app.use(cors()); 
-app.use((jwtMW).unless({path: ['/login']}));
+// app.use((jwtMW).unless({path: unprotected}));
+app.use('/token', tokenRoute)
 app.use('/login', loginRoute)
 app.use('/user',userRoute)
 app.use('/tournament',tournamentRoute)

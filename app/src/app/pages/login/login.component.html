@@ -1,0 +1,31 @@
+<div id="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="ui-inputgroup">
+            <h3 class="first">Login</h3>
+            <div>
+                <label>
+                    <!-- username -->
+                    <span class="ui-inputgroup-addon "><i class="pi pi-user" style="line-height: 1.25;"></i></span>
+                    <input name="name" required minlength="4" required maxlength="30" type="text" pInputText
+                        placeholder="Username" formControlName="username" pTooltip="Enter your username"
+                        tooltipPosition="right" tooltipEvent="focus">
+                </label>
+            </div>
+            <div>
+                <label>
+                    <!-- password -->
+                    <span class="ui-inputgroup-addon"><i class="pi pi-lock" style="line-height: 1.25;"></i></span>
+                    <input type="password" pInputText placeholder="Password" formControlName="password"
+                        pTooltip="Enter your password" tooltipPosition="right" tooltipEvent="focus">
+                </label>
+            </div>
+            <div class="button-group">
+                <button pButton type="submit" label="Connect"></button>
+                <button pButton type="button" label="Forgot password ?" (click)="passwordRecovery()"></button>
+            </div>
+        </div>
+    </form>
+    <div class="error">{{errorMessage}}</div>
+</div>
+
+<p-toast></p-toast>

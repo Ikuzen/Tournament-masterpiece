@@ -1,0 +1,66 @@
+<div id="register-form">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <h3 class="first">Register</h3>
+    <div class="p-grid ui-fluid register-form-group">
+        <div class="p-col-12 p-md-4">
+            <!-- username -->
+            <div class="ui-inputgroup p-col-12 p-md-4">
+                <span class=" ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input name="name" type="text"
+                    pInputText placeholder="Username" 
+                    formControlName="username">
+                    <mat-error *ngIf="registerForm.get('username').touched && registerForm.get('username').dirty && registerForm.get('username').status === 'INVALID'">
+                        <validation-error [errors]="registerForm.get('username').errors"></validation-error>   
+                    </mat-error>    
+            </div>
+          
+            <!-- email -->
+            <div class="p-col-12 p-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon">@</span>
+                    <input type="text" pInputText placeholder="Email" formControlName="email">
+                    <mat-error *ngIf="registerForm.get('email').touched && registerForm.get('email').status === 'INVALID'">
+                        <validation-error [errors]="registerForm.get('email').errors"></validation-error>      
+                    </mat-error>   
+                </div>
+            </div>
+
+            <!-- birthdate -->
+            <div class="p-col-12 p-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-calendar"></i></span>
+                    <input type="date" pInputText placeholder="birthdate" formControlName="birthdate">
+                    <mat-error *ngIf="registerForm.get('birthdate').touched && registerForm.get('birthdate').dirty && registerForm.get('birthdate').status === 'INVALID'">
+                        <validation-error [errors]="registerForm.get('birthdate').errors"></validation-error>      
+                    </mat-error>   
+                </div>
+            </div>
+              <!-- password -->
+              <div class="p-col-12 p-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                    <input type="password" required minlength="4" required maxlength="30"
+                         pInputText placeholder="Password" formControlName="password">
+                    <mat-error *ngIf="registerForm.get('password').touched && registerForm.get('password').dirty && registerForm.get('password').status === 'INVALID'">
+                        <validation-error [errors]="registerForm.get('password').errors"></validation-error>      
+                    </mat-error>   
+                </div>
+            </div>
+
+              <!-- password confirmation -->
+              <div class="p-col-12 p-md-4">
+                <div class="ui-inputgroup">
+                    <span class="ui-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                    <input type="password"
+                         pInputText placeholder="Password confirmation" formControlName="confirmPassword" #confirmPassword>
+                    <mat-error *ngIf="registerForm.get('password').value !== registerForm.get('confirmPassword').value">
+                        <validation-error [errors]="[registerForm.errors]"></validation-error>      
+                    </mat-error>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button pButton label="tooltip" (click)="showFormValidity()"></button>
+    <button pButton type="submit" [disabled]="!registerForm.valid" label="Create account"></button>
+</form>
+</div>

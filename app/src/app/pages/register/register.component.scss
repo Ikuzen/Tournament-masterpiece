@@ -1,0 +1,27 @@
+#register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .register-form-group{
+        display: flex;
+        flex-direction: column;
+    }
+    button:hover{
+        cursor: pointer;
+    }
+    .error{
+        min-width: max-content;
+    }
+    input{
+        min-width: 166px;
+    }
+}
+
+.hiddenTooltip {
+    position: absolute;
+    visibility: hidden;
+    left: 0;
+    width: 0;
+    top: 3em
+  }

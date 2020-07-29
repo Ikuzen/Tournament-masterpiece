@@ -1,0 +1,1 @@
+npx ng test --include "**/%~1*.spec.ts"
