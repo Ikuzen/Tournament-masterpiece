@@ -1,5 +1,5 @@
 import {UserModel} from '../../models/users/user-model'
-import {jwtMW, isAdmin} from '../../secret'
+import {jwtMW, isAdmin} from '../../auth'
 const exjwt = require('express-jwt');
 
 const express = require('express');

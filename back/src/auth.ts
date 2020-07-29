@@ -1,3 +1,5 @@
+import { TournamentModel } from "./models/tournaments/tournament-model";
+
 var atob = require('atob');
 
 const exjwt = require('express-jwt');
@@ -14,8 +16,10 @@ function getUserFromToken(token?: string): any {
     if (token) {
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
         return {
+            _id: decodedToken._id,
             username: decodedToken.username,
-            role: decodedToken.role
+            role: decodedToken.role,
+            
         };
     }
     else {
@@ -23,6 +27,40 @@ function getUserFromToken(token?: string): any {
             username: "",
             role: "guest"
         }
+    }
+}
+
+export async function isTournamentOwner(req, res, next) {
+    var token = req.headers.authorization?.split(' ')[1];
+    if (token) {
+        await jwt.verify(token, _secret, async function (err, decoded) {
+            if (err) {
+                return res.status(401).send({
+                    success: false,
+                    message: 'Sign in to continue.'
+                });
+            } else {
+                const user = getUserFromToken(token);
+                const result = await TournamentModel.findOne({ _id: req.params.id }).exec()
+
+                if(user.role === 'admin'){
+                    next()
+                }
+                else if (user._id === result.ownerId) {
+                    next();
+                }else{
+                    return res.status(401).send({
+                        success: false,
+                        message: `You don't have the rights on this tournament.`
+                    });
+                }
+            }
+        });
+    } else {
+        return res.status(401).send({
+            success: false,
+            message: `You don't have the rights on this tournament.`
+        });
     }
 }
 
@@ -53,7 +91,6 @@ export function isLoggedIn(req, res, next) {
         });
     }
 }
-
 //admin method to check if token is valid and of type admin
 export function isAdmin(req, res, next) {
     // check header or url parameters or post parameters for token

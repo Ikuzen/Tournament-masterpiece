@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as debug from 'debug';
 import * as config from './config';
-import {jwtMW} from './secret'
+import {jwtMW} from './auth'
 const userRoutePublic = require('./public/user-service/user-route')
 const userRoutePrivate = require('./private/user-service/user-route')
 const tournamentRoutePublic = require('./public/tournament-service/tournament-route')

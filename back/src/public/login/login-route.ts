@@ -1,5 +1,5 @@
 import { UserModel } from '../../models/users/user-model'
-import { _secret } from '../../secret';
+import { _secret } from '../../auth';
 const jwt = require('jsonwebtoken');
 const randtoken = require('rand-token') 
 const express = require('express');
@@ -19,8 +19,6 @@ loginRouter.post("/", async (req, res) => {
                 access_token,
                 refresh_token,
                 expiresAt: new Date(Date.now()+250000)
-
-
             });
         }
         else {

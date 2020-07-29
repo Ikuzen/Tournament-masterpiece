@@ -1,5 +1,4 @@
 import {UserModel} from '../../models/users/user-model'
-import {jwtMW, isLoggedIn, isAdmin} from '../../secret'
 const exjwt = require('express-jwt');
 
 const express = require('express');
@@ -19,7 +18,7 @@ userRouter.post("/",  async (request, response) => {
 });
 
 //GET all
-userRouter.get("/", isLoggedIn, async (request, response) => {
+userRouter.get("/", async (request, response) => {
     try {
         const result = await UserModel.find().exec();
         response.send(result);
@@ -30,7 +29,7 @@ userRouter.get("/", isLoggedIn, async (request, response) => {
 
 //GET by id
 
-userRouter.get("/:id", isLoggedIn, async (request, response) => {
+userRouter.get("/:id", async (request, response) => {
     try {
         const user = await UserModel.findById(request.params.id).exec();
         response.send(user);
@@ -41,7 +40,7 @@ userRouter.get("/:id", isLoggedIn, async (request, response) => {
 
 
 //GET by username
-userRouter.get("/username/:username", isLoggedIn,  async (request, response) => {
+userRouter.get("/username/:username",  async (request, response) => {
     try {
         const user = await UserModel.find({ username: new RegExp(`^${request.params.username}$`) }).exec();
         response.send(user);
