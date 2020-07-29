@@ -1,4 +1,4 @@
-import {TournamentModel} from './tournament-model'
+import {TournamentModel} from '../../models/tournaments/tournament-model'
 
 const express = require('express');
 const tournamentRouter = express.Router();
@@ -45,26 +45,6 @@ tournamentRouter.get("/name/:name", async (request, response) => {
         response.send(user);
     } catch (error) {
         response.status(500).send(error);
-    }
-});
-
-tournamentRouter.put("/:id", async (request, response) => {
-    try {
-        const user = await TournamentModel.findById(request.params.id).exec();
-        user.set(request.body);
-        const result = await user.save();
-        response.send(result);
-    } catch (error) {
-        response.status(404).send(`tournament ${request.params.id}not found`);
-    }
-});
-
-tournamentRouter.delete("/:id", async (request, response) => {
-    try {
-        const result = await TournamentModel.deleteOne({ _id: request.params.id }).exec();
-        response.send(result);
-    } catch (error) {
-        response.status(404).send(`tournament ${request.params.id}not found`);
     }
 });
 

@@ -2,10 +2,12 @@ import * as express from 'express';
 import * as debug from 'debug';
 import * as config from './config';
 import {jwtMW} from './secret'
-const userRoute = require('./user-service/user-route')
-const tournamentRoute = require('./tournament-service/tournament-route')
-const loginRoute = require('./login/login-route')
-const tokenRoute = require('./token-route/token-route')
+const userRoutePublic = require('./public/user-service/user-route')
+const userRoutePrivate = require('./private/user-service/user-route')
+const tournamentRoutePublic = require('./public/tournament-service/tournament-route')
+const tournamentRoutePrivate = require('./private/tournament-service/tournament-route')
+const loginRoute = require('./public/login/login-route')
+const tokenRoute = require('./public/token-route/token-route')
 const cors = require('cors')
 const mongoose = require('mongoose');
 const fs = require('fs')
@@ -33,8 +35,10 @@ app.use(cors());
 // app.use((jwtMW).unless({path: unprotected}));
 app.use('/token', tokenRoute)
 app.use('/login', loginRoute)
-app.use('/user',userRoute)
-app.use('/tournament',tournamentRoute)
+app.use('/user',userRoutePublic)
+app.use('/user',userRoutePrivate)
+app.use('/tournament',tournamentRoutePublic)
+app.use('/tournament',tournamentRoutePrivate)
 
 db.once('open', function () {
     console.log("connected")

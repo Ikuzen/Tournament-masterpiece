@@ -1,5 +1,5 @@
-import { UserModel } from '../user-service/user-model'
-import { _secret } from '../secret';
+import { UserModel } from '../../models/users/user-model'
+import { _secret } from '../../secret';
 const jwt = require('jsonwebtoken');
 const randtoken = require('rand-token') 
 const express = require('express');
