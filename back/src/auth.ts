@@ -31,37 +31,31 @@ function getUserFromToken(token?: string): any {
 }
 
 export async function isTournamentOwner(req, res, next) {
-    var token = req.headers.authorization?.split(' ')[1];
-    if (token) {
-        await jwt.verify(token, _secret, async function (err, decoded) {
-            if (err) {
-                return res.status(401).send({
-                    success: false,
-                    message: 'Sign in to continue.'
-                });
-            } else {
-                const user = getUserFromToken(token);
-                const result = await TournamentModel.findOne({ _id: req.params.id }).exec()
+  var token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    return res.status(401).send({
+      success: false,
+      message: `You don't have the rights on this tournament.`,
+    });
+  }
 
-                if(user.role === 'admin'){
-                    next()
-                }
-                else if (user._id === result.ownerId) {
-                    next();
-                }else{
-                    return res.status(401).send({
-                        success: false,
-                        message: `You don't have the rights on this tournament.`
-                    });
-                }
-            }
-        });
+  try {
+    const user = getUserFromToken(token);
+    const tournamentOwner = await TournamentModel.findOne({ _id: req.params.id }).exec();
+    if (user.role === "admin" || user._id === tournamentOwner.ownerId) {
+      next();
     } else {
-        return res.status(401).send({
-            success: false,
-            message: `You don't have the rights on this tournament.`
-        });
+      return res.status(401).send({
+        success: false,
+        message: `You don't have the rights on this tournament.`,
+      });
     }
+  } catch (err) {
+    return res.status(401).send({
+      success: false,
+      message: "Sign in to continue.",
+    });
+  }
 }
 
 //isLoggedIn method to check specific methods
