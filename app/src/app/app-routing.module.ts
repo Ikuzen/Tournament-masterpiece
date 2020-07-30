@@ -7,17 +7,20 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
+import { TournamentsComponent } from './pages/tournaments/tournaments.component';
+import { UsersComponent } from './pages/users/users.component';
 
 
 
-const routes: Routes = [  
+const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   {path: 'main', component: MainComponent },
   {path: 'register', component: RegisterComponent },
   {path: 'login', component: LoginComponent },
-  {path: 'users', component: UserListComponent, canActivate:[AuthGuard]},
-  {path: 'forbidden',   component: ForbiddenComponent},
-  {path: '**',   component: NotFoundComponent}
+  {path: 'users', component: UserListComponent },
+  {path: 'tournaments', component: TournamentsComponent },
+  {path: 'forbidden',   component: ForbiddenComponent },
+  {path: '**',   component: NotFoundComponent }
 ];
 
 @NgModule({
