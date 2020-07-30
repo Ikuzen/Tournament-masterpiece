@@ -1,0 +1,7 @@
+p-menubar ::ng-deep > div{
+    div.ui-menubar-custom{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+}

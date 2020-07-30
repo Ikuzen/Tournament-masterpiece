@@ -35,7 +35,7 @@ export async function isTournamentOwner(req, res, next) {
   if (!token) {
     return res.status(401).send({
       success: false,
-      message: `You don't have the rights on this tournament.`,
+      message: `Sign in to continue.`,
     });
   }
 
