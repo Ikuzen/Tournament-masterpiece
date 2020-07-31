@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 export const TournamentSchema = new Schema({
     name: { type : String , unique : true },
     size:  { type: Number ,required : true},
+    ownerId: { type: String },
     createdAt: {type: Date, default: Date.now}
 },
 {collection:"tournaments"});
