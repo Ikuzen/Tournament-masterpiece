@@ -19,9 +19,9 @@ export class NavbarTopComponent implements OnInit {
   items: MenuItem[];
   constructor(private router: Router, private localStorageService: LocalStorageService, private loginService: LoginService, private readonly store: Store<fromAuth.ApplicationState>) {
   }
-  private user$: BehaviorSubject<{ username?: string, role?: string }> = new BehaviorSubject(this.loginService.getUserFromToken(this.localStorageService.getToken()));
+  private user$: BehaviorSubject<{ username?: string, role?: string, id?:string}> = new BehaviorSubject(this.loginService.getUserFromToken(this.localStorageService.getToken()));
 
-  get _user$(): Observable<{ username?: string, role?: string }> {
+  get _user$(): Observable<{ username?: string, role?: string, id?: string }> {
     return from(this.user$);
   }
 

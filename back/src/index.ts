@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as debug from 'debug';
 import * as config from './config';
-import {jwtMW} from './auth'
+
 const userRoutePublic = require('./public/user-service/user-route')
 const userRoutePrivate = require('./private/user-service/user-route')
 const tournamentRoutePublic = require('./public/tournament-service/tournament-route')
@@ -24,15 +24,10 @@ fs.readFile('./keys/private.pem',(err,data)=>{
     privateKey = data;
 })
 
-// const unprotected = [
-//     {url: /\/login*/, methods: ['GET', 'PUT', 'POST']},
-//     {url: /\/token*/, methods: ['GET', 'PUT', 'POST']},
-//     {url: /\/user*/, methods: ['GET', 'PUT', 'POST']}
-// ]
+
 app.use(cors())
 app.use(BodyParser.json());
 app.use(cors()); 
-// app.use((jwtMW).unless({path: unprotected}));
 app.use('/token', tokenRoute)
 app.use('/login', loginRoute)
 app.use('/user',userRoutePublic)

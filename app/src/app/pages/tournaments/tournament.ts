@@ -4,4 +4,6 @@ export interface Tournament {
     ownerId: string;
     name: string;
     size: number;
+    participants: {username: string, id: string}[];
+    organizer: {username: string, id: string};
 }

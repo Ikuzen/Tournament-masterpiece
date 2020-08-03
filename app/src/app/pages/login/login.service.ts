@@ -22,11 +22,10 @@ export class LoginService {
       tap((result) => {
         if (result.success) {
           this.clearToken();
-          this.localStorageService.setToken(result.access_token);
+          this.localStorageService.setToken(result.access_token, result.refresh_token);
           this.store.dispatch(action.login({
             currentUser: this.getUserFromToken(result.access_token)
           }));
-          console.log(result)
           return "successfully connected";
         } else {
           return result.err;

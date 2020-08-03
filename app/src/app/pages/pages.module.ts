@@ -29,11 +29,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ValidationErrorsService } from '../shared/validation/services/validation-errors.service';
+import { TournamentsComponent } from './tournaments/tournaments.component';
+import { TournamentCreationComponent } from './tournaments/tournament-creation/tournament-creation.component';
+import {PaginatorModule} from 'primeng/paginator';
+import {TableModule} from 'primeng/table';
+import {DataViewModule} from 'primeng/dataview';
+import {PanelModule} from 'primeng/panel';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 
 @NgModule({
-  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent],
+  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, TournamentsComponent, TournamentCreationComponent, MainComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent, TournamentCreationComponent],
   imports: [
     CommonModule,
     CarouselModule,
@@ -51,8 +58,13 @@ import { ValidationErrorsService } from '../shared/validation/services/validatio
     ReactiveFormsModule,
     MatTooltipModule,
     MatFormFieldModule,
+    PaginatorModule,
+    TableModule,
+    DataViewModule,
+    DropdownModule,
+    PanelModule
   ],
   providers:[LocalStorageService, UtilService, ToastService, ValidationErrorsService],
-  exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent]
+  exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, TournamentsComponent, TournamentCreationComponent]
 })
 export class PagesModule { }

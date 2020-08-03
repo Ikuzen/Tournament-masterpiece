@@ -14,7 +14,7 @@ export class ValidationErrorsService {
     return ((control: AbstractControl): Observable<ValidationErrors | null> => {
       return this.userService.getByName(control.value).pipe(
         map(res => {
-          return res ? { forbiddenNameValidator: true } : null;
+          return res[0]?.username ? { forbiddenNameValidator: true } : null;
         })
       )
     })
