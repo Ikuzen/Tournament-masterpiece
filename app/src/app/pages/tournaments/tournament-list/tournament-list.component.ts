@@ -4,6 +4,7 @@ import { Observable, pipe } from 'rxjs';
 import { TournamentService } from '../tournament.service';
 import { take, tap } from 'rxjs/operators';
 import { SelectItem } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tournament-list',
@@ -19,21 +20,21 @@ export class TournamentListComponent implements OnInit {
   sortField: string;
 
   sortOrder: number;
-  constructor(private tournamentService: TournamentService) { }
+  constructor(private tournamentService: TournamentService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllTournaments().pipe(
       take(1),
       tap((result) => {
         this.tournaments = result;
-        console.log(this.tournaments)
       })
     ).subscribe();
 
     this.sortOptions = [
-      {label: 'Newest First', value: '!year'},
-      {label: 'Oldest First', value: 'year'},
-      {label: 'Brand', value: 'brand'}
+      {label: 'Most recent', value: '!createdAt'},
+      {label: 'Least recent', value: 'createdAt'},
+      {label: 'Name', value: 'name'},
+      {label: 'Attendance', value: 'size'}
 
     ];
   }
@@ -53,5 +54,8 @@ export class TournamentListComponent implements OnInit {
         this.sortOrder = 1;
         this.sortField = value;
     }
+  }
+  navigateTournament(tournament: Tournament){
+    this.router.navigate(['tournament/'+ tournament._id]);
   }
 }

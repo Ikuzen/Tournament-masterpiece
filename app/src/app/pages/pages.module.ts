@@ -36,11 +36,12 @@ import {TableModule} from 'primeng/table';
 import {DataViewModule} from 'primeng/dataview';
 import {PanelModule} from 'primeng/panel';
 import {DropdownModule} from 'primeng/dropdown';
+import { TournamentNotFoundComponent } from './tournaments/tournament-not-found/tournament-not-found.component';
 
 
 
 @NgModule({
-  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, TournamentsComponent, TournamentCreationComponent, MainComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent, TournamentCreationComponent],
+  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, TournamentsComponent, TournamentCreationComponent, MainComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent, TournamentCreationComponent, TournamentNotFoundComponent],
   imports: [
     CommonModule,
     CarouselModule,

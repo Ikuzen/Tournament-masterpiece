@@ -1,1 +1,34 @@
-<p>tournament-detail works!</p>
+<div *ngIf="tournament">
+    <div class=" tournament-banner-body">
+        <div class="p-shadow-24 main">
+            <h1 class="p-col-6 tournament-name">
+                {{tournament.name}}
+            </h1>
+            <ul class="p-col-12 tournament-infos">
+                <li>Entrants : {{tournament.participants.length}}/{{tournament.size}}</li>
+                <li>Type : single elimination</li>
+                <li>Tournament start : {{tournament.startDate || 'NA'}}</li>
+                <li>Status : {{tournament.status}}</li>
+            </ul>
+            <button *ngIf="isTournamentOwner" pButton> Edit</button>
+
+            <div>
+                Organized by: <a
+                    (click)="utilService.navigate('user/'+tournament.organizer.id)">{{tournament.organizer.username}}</a>
+                <button *ngIf="isLoggedIn" pButton> Participate</button>
+            </div>
+        </div>
+    </div>
+    <div class="tournament-description">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos porro, dignissimos, consequatur, officia nostrum
+        officiis soluta necessitatibus quae maiores ab facilis illum ullam sunt aliquam? Iure impedit cumque cum sunt?
+    </div>
+
+
+
+
+</div>
+
+<div *ngIf="!tournament">
+    <app-tournament-not-found></app-tournament-not-found>
+</div>

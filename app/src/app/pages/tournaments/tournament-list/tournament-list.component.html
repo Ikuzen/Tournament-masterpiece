@@ -1,14 +1,16 @@
-<p-dataView #dv [value]="tournaments" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="brand"
+<p-dataView #dv [value]="tournaments" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="name"
     [sortField]="sortField" [sortOrder]="sortOrder">
     <p-header>
         <div class="ui-helper-clearfix">
             <div class="p-grid">
                 <div class="p-col-12 p-md-4">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                        (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                 </div>
                 <div class="p-col-6 p-md-4 filter-container">
                     <div style="position:relative">
-                        <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
+                        <input type="search" pInputText placeholder="Search a tournament"
+                            (input)="dv.filter($event.target.value)">
                     </div>
                 </div>
                 <div class="p-col-6 p-md-4" style="text-align:right">
@@ -17,26 +19,32 @@
             </div>
         </div>
     </p-header>
+    <!-- line view -->
     <ng-template let-tournament pTemplate="listItem">
         <div class="p-col-12">
             <div class="tournament-details">
                 <div>
                     <div class="p-grid">
                         <div class="p-col-12">name: <b>{{tournament.name}}</b></div>
-                        <div class="p-col-12">size: <b>{{tournament.size}}</b></div>
-                        <div class="p-col-12">id: <b>{{tournament._id}}</b></div>
-                        <div class="p-col-12">createdAt: <b>{{tournament.createdAt}}</b></div>
+                        <div class="p-col-12"><b>{{tournament.size}} Participants</b></div>
+                        <div class="p-col-12">created at <b>{{tournament.createdAt}}</b></div>
                     </div>
                 </div>
-                <button pButton type="button" icon="pi pi-search"></button>
+                <button pButton type="button" icon="pi pi-search" (click)="navigateTournament(tournament)">View</button>
             </div>
         </div>
     </ng-template>
+    <!-- grid view -->
     <ng-template let-tournament pTemplate="gridItem">
         <div style="padding:.5em" class="p-col-12 p-md-3">
-            <p-panel [header]="tournament.vin" [style]="{'text-align':'center'}">
-                <div class="tournament-detail">{{tournament.name}} - {{tournament.size}}</div>
-                <button pButton type="button" icon="pi pi-search" style="margin-top:0"></button>
+            <p-panel [header]="tournament.vin" class="panel-grid-view" [style]="{'text-align':'center'}">
+                <div class="tournament-detail">
+                    <div class="p-col-12">name: <b>{{tournament.name}}</b></div>
+                    <div class="p-col-12">size: <b>{{tournament.size}}</b></div>
+                    <div class="p-col-12">id: <b>{{tournament._id}}</b></div>
+                    <div class="p-col-12">createdAt: <b>{{tournament.createdAt}}</b></div>
+                </div>
+                <button pButton type="button" icon="pi pi-search" (click)="navigateTournament(tournament)">View</button>
             </p-panel>
         </div>
     </ng-template>
