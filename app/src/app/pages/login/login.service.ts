@@ -42,6 +42,7 @@ export class LoginService {
       action.login({
         currentUser: {
           username: '',
+          id: '',
           role: 'guest'
         }
       })
@@ -69,12 +70,14 @@ export class LoginService {
       const decodedToken = JSON.parse(atob(token.split(".")[1]));
       return {
         username: decodedToken.username,
+        id: decodedToken._id,
         role: decodedToken.role
       };
     }
     else {
       return {
         username: "",
+        id:"",
         role: "guest"
       }
     }

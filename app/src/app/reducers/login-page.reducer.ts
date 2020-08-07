@@ -7,7 +7,8 @@ export const loginPageFeatureKey = 'loginPage';
 export interface ApplicationState {
   currentlyLoading: boolean;
   currentUser: {
-    username?: string;
+    username?: string,
+    id?: string,
     role?: string;
   }
   tournamentList: Tournament[];
@@ -18,6 +19,7 @@ export const initialState: ApplicationState = {
   currentlyLoading: false,
   currentUser: {
     username: "",
+    id:"",
     role: "guest"
   },
   tournamentList: [],

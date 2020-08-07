@@ -35,11 +35,11 @@ export class UserService {
   }
 
   update(id: string, user: User) {
-    return this.http.put<User>(`http://localhost:3000/user/${id}`, user);
+    return this.http.put<User>(`http://localhost:3000/user/${id}`, user, this.httpOptions);
 
   }
   deleteById(id: string) {
-    return this.http.delete<User>(`http://localhost:3000/user/${id}`);
+    return this.http.delete<User>(`http://localhost:3000/user/${id}`, this.httpOptions);
 
   }
   deleteAll() {

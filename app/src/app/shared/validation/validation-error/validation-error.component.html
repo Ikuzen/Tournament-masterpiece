@@ -1,5 +1,6 @@
 <ng-container *ngIf="errors && errors['required']" matTooltip="field required"></ng-container>
 <ng-container *ngIf="errors && errors.forbiddenNameValidator">Username already exists</ng-container>
+<ng-container *ngIf="errors && errors.forbiddenTournamentNameValidator">tournament name is already used</ng-container>
 <ng-container *ngIf="errors && errors['email']">Please enter a valid email</ng-container>
 <ng-container *ngIf="errors && errors['minlength']">must be at least 3 characters</ng-container>
 <ng-container *ngIf="errors && errors['maxlength']">must be at most 30 characters</ng-container>

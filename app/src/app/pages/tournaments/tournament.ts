@@ -1,10 +1,13 @@
 export interface Tournament {
-    _id: string;
-    createdAt: Date;
-    name: string;
-    size: number;
-    participants: {username: string, id: string}[];
-    organizer: {username: string, id: string};
-    startDate: Date;
-    status: string;
+    _id?: string;
+    createdAt?: Date;
+    name?: string;
+    size?: number;
+    description?: string;
+    participants?: {username?: string, id?: string}[];
+    game?: string;
+    format?: string;
+    organizer?: {username?: string, id?: string, role?: string};
+    startDate?: Date;
+    status?: string;
 }

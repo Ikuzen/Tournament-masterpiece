@@ -11,6 +11,7 @@ import { TournamentsComponent } from './pages/tournaments/tournaments.component'
 import { UsersComponent } from './pages/users/users.component';
 import { TournamentDetailComponent } from './pages/tournaments/tournament-detail/tournament-detail.component';
 import { UserDetailComponent } from './pages/users/user-detail/user-detail.component';
+import { TournamentCreationComponent } from './pages/tournaments/tournament-creation/tournament-creation.component';
 
 
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'users', component: UserListComponent },
   {path: 'user/:id', component: UserDetailComponent },
   {path: 'tournaments', component: TournamentsComponent },
+  {path: 'tournamentCreate', canActivate: [AuthGuard], component: TournamentCreationComponent },
   {path: 'tournament/:tournamentId', component: TournamentDetailComponent },
   {path: 'forbidden',   component: ForbiddenComponent },
   {path: '**',   component: NotFoundComponent }
