@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Tournament } from './tournament';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Tournament, TournamentPages } from './tournament';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
 import { LoginService } from '../login/login.service';
@@ -23,10 +23,18 @@ export class TournamentService {
     return this.http.post<Tournament>('http://localhost:3000/tournament', tournament, this.httpOptions);
   }
 
-  getAll(): Observable<Tournament[]> {
-    return this.http.get<Tournament[]>('http://localhost:3000/tournament');
-
+  getAll(queryParams?: any): Observable<TournamentPages> {
+    let params = new HttpParams()
+    if(queryParams.game){
+      params = params.set('game', queryParams.game);
+    }
+    if(queryParams.status){
+      params = params.set('status', queryParams.status);
+    }
+    console.log(params)
+    return this.http.get<TournamentPages>('http://localhost:3000/tournament', {params});
   }
+
   getById(id: string) {
     return this.http.get<Tournament>(`http://localhost:3000/tournament/${id}`);
   }
@@ -45,5 +53,10 @@ export class TournamentService {
   }
   deleteAll() {
     return this.http.delete<Tournament>('http://localhost:3000/tournament', this.httpOptions);
+  }
+
+  getAllGames(){
+    return this.http.get<string[]>('http://localhost:3000/tournament/other/games');
+
   }
 }

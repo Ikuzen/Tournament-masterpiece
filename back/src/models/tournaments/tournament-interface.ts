@@ -5,6 +5,9 @@ export interface Tournament {
     createdAt: Date;
     organizer?: {username:string, id:string};
     participants?: User[];
+    description?: string;
+    game?: string;
+    format?: string;
     name: string;
     size: number;
     startDate: Date

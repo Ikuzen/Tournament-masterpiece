@@ -2,6 +2,7 @@
 p-dataview {
     .filter-container {
       text-align: center;
+      display: flex;
     }
 
     .tournament-details {
@@ -39,18 +40,14 @@ p-dataview {
     div.ui-dataview-grid {
 
       .ui-dataview-content {
-        background-color: red !important;
-
         div.ui-g {
           div {
             p-panel {
               div {
                 background-color: lightgrey !important;
                 cursor: pointer;
-
               }
             }
-
           }
         }
       }

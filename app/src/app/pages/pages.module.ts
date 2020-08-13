@@ -38,6 +38,7 @@ import {PanelModule} from 'primeng/panel';
 import {DropdownModule} from 'primeng/dropdown';
 import { TournamentNotFoundComponent } from './tournaments/tournament-not-found/tournament-not-found.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {FilterUtils} from 'primeng/utils';
 
 
 
@@ -65,7 +66,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     DataViewModule,
     DropdownModule,
     PanelModule,
-    InputTextareaModule
+    InputTextareaModule,
+    // FilterUtils
   ],
   providers:[LocalStorageService, UtilService, ToastService, ValidationErrorsService],
   exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, TournamentsComponent, TournamentCreationComponent]
