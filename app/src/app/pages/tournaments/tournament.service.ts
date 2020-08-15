@@ -9,18 +9,20 @@ import { LoginService } from '../login/login.service';
   providedIn: 'root'
 })
 export class TournamentService {
-  httpOptions: { headers: HttpHeaders }
   constructor(private http: HttpClient, private localStorageService: LocalStorageService, private loginService: LoginService) {
-    this.httpOptions = {
+    
+  }
+
+  getOptions(){
+    return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.localStorageService.getToken()}`
       })
     };
   }
-
   create(tournament: Tournament) {
-    return this.http.post<Tournament>('http://localhost:3000/tournament', tournament, this.httpOptions);
+    return this.http.post<Tournament>('http://localhost:3000/tournament', tournament, this.getOptions());
   }
 
   getAll(queryParams?: any): Observable<TournamentPages> {
@@ -44,15 +46,15 @@ export class TournamentService {
   }
 
   update(id: string, tournament: Tournament) {
-    return this.http.put<Tournament>(`http://localhost:3000/tournament/${id}`, tournament, this.httpOptions);
+    return this.http.put<Tournament>(`http://localhost:3000/tournament/${id}`, tournament, this.getOptions());
   }
 
   deleteById(id: string) {
-    return this.http.delete<Tournament>(`http://localhost:3000/tournament/${id}`, this.httpOptions);
+    return this.http.delete<Tournament>(`http://localhost:3000/tournament/${id}`, this.getOptions());
 
   }
   deleteAll() {
-    return this.http.delete<Tournament>('http://localhost:3000/tournament', this.httpOptions);
+    return this.http.delete<Tournament>('http://localhost:3000/tournament', this.getOptions());
   }
 
   getAllGames(){

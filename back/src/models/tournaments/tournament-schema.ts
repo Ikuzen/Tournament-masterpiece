@@ -16,8 +16,8 @@ export const TournamentSchema = new mongoose.Schema({
         id: {type: String}
     }],
     organizer: {
-        username: {type: String},
-        id: {type: String}
+        username: {type: String, required: true},
+        id: {type: String, required: true}
     },
     startDate:{type: Date},
     status:{type: String, default: 'not started'}},

@@ -12,7 +12,7 @@ export const jwtMW = exjwt({
     secret: _secret
 });
 
-function getUserFromToken(token?: string): any {
+export function getUserFromToken(token?: string): any {
     if (token) {
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
         return {
@@ -25,7 +25,7 @@ function getUserFromToken(token?: string): any {
     else {
         return {
             username: "",
-            role: "guest"
+            role: "guest",
         }
     }
 }
