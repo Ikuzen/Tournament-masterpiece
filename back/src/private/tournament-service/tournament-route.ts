@@ -11,15 +11,10 @@ tournamentRouter.post("/", isLoggedIn, async (request, response) => {
     try {
         let  token = request.headers.authorization?.split(' ')[1];
         const user = getUserFromToken(token);
-        console.log("the user")
-        console.log(request.headers)
-        console.log('the request')
-        console.log(request.body)
         if(request.body?.organizer?.username !== user.username && request.body?.organizer?._id !== user._id){
             response.status(500).send('organizer must be the same as the tournament creator')
         }
         const tournament = new TournamentModel(request.body);
-        console.log(tournament)
         const result = await tournament.save();
         response.send(result);
     } catch (error) {
