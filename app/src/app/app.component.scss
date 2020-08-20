@@ -12,3 +12,16 @@
 .custom-toast .ui-toast-message.ui-toast-message-info .ui-toast-close-icon {
     color: #ffffff;
 }
+
+.page-container{
+    position: relative;
+    display: flex;
+    padding: 1.5%;
+    margin: 80px 15px 17px 15px;
+    border: none;
+    flex-direction: column;
+    min-width: 400px;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+}

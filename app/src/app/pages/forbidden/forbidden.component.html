@@ -1,1 +1,2 @@
-<h1> You have to log in to see this page</h1>
+<h1 *ngIf="!isLoggedIn"> You have to log in to see this page</h1>
+<h1 *ngIf="isLoggedIn"> You don't have permissions to see this page</h1>

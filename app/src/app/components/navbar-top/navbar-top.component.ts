@@ -8,6 +8,7 @@ import { userSelector } from 'src/app/reducers/login-page.reducer';
 import { Observable, BehaviorSubject, from } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import * as fromAuth from '@reducers/login-page.reducer';
+import { UtilService } from '../../shared/services/util.service';
 
 @Component({
   selector: 'app-navbar-top',
@@ -17,11 +18,11 @@ import * as fromAuth from '@reducers/login-page.reducer';
 export class NavbarTopComponent implements OnInit {
 
   items: MenuItem[];
-  constructor(private router: Router, private localStorageService: LocalStorageService, private loginService: LoginService, private readonly store: Store<fromAuth.ApplicationState>) {
+  constructor(private router: Router, private localStorageService: LocalStorageService, private loginService: LoginService, private readonly store: Store<fromAuth.ApplicationState>,public utilService: UtilService) {
   }
-  private user$: BehaviorSubject<{ username?: string, role?: string }> = new BehaviorSubject(this.loginService.getUserFromToken(this.localStorageService.getToken()));
+  private user$: BehaviorSubject<{ username?: string, role?: string, id?: string }> = new BehaviorSubject(this.loginService.getUserFromToken(this.localStorageService.getToken()));
 
-  get _user$(): Observable<{ username?: string, role?: string }> {
+  get _user$(): Observable<{ username?: string, role?: string, id?: string }> {
     return from(this.user$);
   }
 
@@ -46,9 +47,5 @@ export class NavbarTopComponent implements OnInit {
 
   logout() {
     this.loginService.logout();
-  }
-
-  navigate(link: any) {
-    this.router.navigate([link]);
   }
 }

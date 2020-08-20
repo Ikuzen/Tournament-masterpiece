@@ -1,5 +1,5 @@
 import {TournamentModel} from '../../models/tournaments/tournament-model'
-import { jwtMW, isTournamentOwner, isAdmin } from '../../auth';
+import { jwtMW, isTournamentOwner, isAdmin, isLoggedIn, getUserFromToken } from '../../auth';
 
 const express = require('express');
 const tournamentRouter = express.Router();
@@ -7,10 +7,15 @@ const cors = require('cors')
 tournamentRouter.use(cors({origin: 'http://localhost:4200'}))
 tournamentRouter.use(jwtMW);
 
-tournamentRouter.post("/", async (request, response) => {
+tournamentRouter.post("/", isLoggedIn, async (request, response) => {
     try {
-        const user = new TournamentModel(request.body);
-        const result = await user.save();
+        let  token = request.headers.authorization?.split(' ')[1];
+        const user = getUserFromToken(token);
+        if(request.body?.organizer?.username !== user.username && request.body?.organizer?._id !== user._id){
+            response.status(500).send('organizer must be the same as the tournament creator')
+        }
+        const tournament = new TournamentModel(request.body);
+        const result = await tournament.save();
         response.send(result);
     } catch (error) {
         response.status(500).send(error);
@@ -19,9 +24,9 @@ tournamentRouter.post("/", async (request, response) => {
 
 tournamentRouter.put("/:id", isTournamentOwner, async (request, response) => {
     try {
-        const user = await TournamentModel.findById(request.params.id).exec();
-        user.set(request.body);
-        const result = await user.save();
+        const tournament = await TournamentModel.findById(request.params.id).exec();
+        tournament.set(request.body);
+        const result = await tournament.save();
         response.send(result);
     } catch (error) {
         response.status(404).send(`tournament ${request.params.id}not found`);

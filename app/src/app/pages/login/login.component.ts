@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.value.username && this.loginForm.value.password) {
       this.credentials = { username: this.loginForm.value.username, password: this.loginForm.value.password }
       this.loginService.login(this.credentials).pipe(take(1)).subscribe((result) => {
-        this.router.navigate(["/users"])
+        this.router.navigate(["/tournaments"])
         this.toastService.success('successfully logged in', 'Welcome '+ this.loginForm.value.username);
       },
         (err) => {

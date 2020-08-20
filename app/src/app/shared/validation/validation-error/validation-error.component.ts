@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ElementRef, ViewChild } from '@angular/core';
 import { ValidationErrors, FormGroup } from '@angular/forms';
 import { MatTooltip } from '@angular/material/tooltip';
+import { error } from 'console';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class ValidationErrorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.errors)
   }
 
   notSameError(){

@@ -1,0 +1,83 @@
+<div id="tournament-form">
+    <form [formGroup]="tournamentForm" (ngSubmit)="updateTournament()">
+        <h1 class="first">{{tournament?.name}}</h1>
+        <div class="tournament-form-group">
+            <!-- tournament name -->
+            <div class="p-grid">
+                <div class="input-label p-col">
+                    <h2>tournament name<span style="color: red;">*</span></h2>
+                </div>
+                <div class="input-tournament-name p-col">
+                    <span class=" ui-inputgroup-addon"></span>
+                    <input name="name" type="text" pInputText placeholder="Tournament name" formControlName="name">
+                    <mat-error
+                        *ngIf="tournamentForm.get('name').touched && tournamentForm.get('name').dirty && tournamentForm.get('name').status === 'INVALID'">
+                        <validation-error [errors]="tournamentForm.get('name').errors"></validation-error>
+                    </mat-error>
+                </div>
+            </div>
+            <!-- description -->
+            <div class="p-grid">
+                <div class="input-label p-col">
+                    <h2>tournament description</h2>
+                </div>
+                <div class="input-tournament-description p-col">
+                    <span class=" ui-inputgroup-addon"></span>
+                    <textarea pInputTextarea [rows]="5" [cols]="30" placeholder="Description" autoResize="autoResize"
+                        formControlName="description"></textarea>
+                </div>
+            </div>
+            <!-- game -->
+            <div class="p-grid">
+                <div class="input-label p-col">
+                    <h2>game</h2>
+                </div>
+                <div class="input-tournament-game p-col">
+                    <span class=" ui-inputgroup-addon"></span>
+                    <input pInput placeholder="game"
+                        formControlName="game">
+                </div>
+            </div>
+            <!-- format -->
+            <div class="p-grid">
+                <div class="input-label p-col">
+                    <h2>format</h2>
+                </div>
+                <div class="input-tournament-format p-col">
+                    <span class=" ui-inputgroup-addon"></span>
+                    <select name="format" formControlName="format">
+                        <option value="single-elimination" selected="true">single-elimination</option>
+                        <option value="double-elimination">double-elimination</option>
+                    </select>
+                </div>
+            </div>
+            <!-- size -->
+            <div class="p-grid">
+                <div class="input-label p-col">
+                    <h2>tournament size</h2>
+                </div>
+                <div class="input-tournament-size p-col">
+                    <span class=" ui-inputgroup-addon"></span>
+                    <select name="size" formControlName="size">
+                        <option value="4">4</option>
+                        <option value="8">8</option>
+                        <option value="16" selected="true">16</option>
+                        <option value="32">32</option>
+                        <option value="64">64</option>
+                    </select>
+                </div>
+            </div>
+            <!-- startDate -->
+            <div class="p-grid">
+                <div class="input-label p-col">
+                    <h2>tournament start</h2>
+                </div>
+                <div class="input-tournament-start p-col">
+                    <span class=" ui-inputgroup-addon"></span>
+                    <input pInput type="date" name="startDate" formControlName="startDate">
+                </div>
+            </div>
+        </div>
+        <button pButton type="submit" [disabled]="!tournamentForm.valid" label="update tournament"></button>
+    </form>
+</div>

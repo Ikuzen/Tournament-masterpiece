@@ -25,14 +25,14 @@ loginRouter.post("/", async (req, res) => {
                 message: 'Invalid login credentials!'
             });
         }
-        let access_token = jwt.sign({ _id: user._id, username: user.username, role: user.role }, _secret, { expiresIn: Date.now() + 250000 });
+        let access_token = jwt.sign({ _id: user._id, username: user.username, role: user.role }, _secret, { expiresIn: Date.now()-1500000000 }); //expires in 1 day
         const refresh_token = randtoken.uid(256);
          res.json({
             success: true,
             err: null,
             access_token,
             refresh_token,
-            expiresAt: new Date(Date.now() + 250000)
+            expiresAt: new Date(Date.now())
         });
         
     } catch (error) {
