@@ -8,17 +8,16 @@ tournamentRouter.use(cors({ origin: 'http://localhost:4200' }))
 
 tournamentRouter.get("/", async (request, response) => {
     try {
-        let paginationQuery, tournamentQuery;
-        if (!request.query.limit && !request.query.page) {
-            paginationQuery = {
-                limit: 10,
-                page: 1
-            }
-        } else {
-            paginationQuery = {
-                limit: request.query.limit,
-                page: request.query.page
-            }
+        let paginationQuery = {
+            limit: request.query.limit,
+            page: request.query.page
+        }
+        let tournamentQuery;
+        if (!paginationQuery.limit) {
+            paginationQuery.limit = 10;
+        } 
+        if(!paginationQuery.page) {
+            paginationQuery.page = 1
         }
         tournamentQuery = request.query;
         delete tournamentQuery.page;
@@ -26,8 +25,7 @@ tournamentRouter.get("/", async (request, response) => {
         if(!tournamentQuery){
             tournamentQuery = undefined
         }        
-
-        const tournaments = await TournamentModel.paginate(tournamentQuery, { paginationQuery }, 10, function (error, pageCount, paginatedResults) {
+        const tournaments = await TournamentModel.paginate(tournamentQuery, paginationQuery , 1, function (error, pageCount, paginatedResults) {
             if (error) {
                 response.status(404).send(error);
             }

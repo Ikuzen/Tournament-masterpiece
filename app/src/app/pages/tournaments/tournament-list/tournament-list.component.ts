@@ -23,20 +23,11 @@ export class TournamentListComponent implements OnInit {
   sortField: string;
   sortOrder: number;
   filters: string = "";
-  params = {game:'',status:''};
-  constructor(private tournamentService: TournamentService, private router: Router) {
-    // FilterUtils['custom-equals'] = (value, filter): boolean => {
-    //   if (filter === undefined || filter === null || filter.trim() === '') {
-    //     return true;
-    //   }
-
-    //   if (value === undefined || value === null) {
-    //     return false;
-    //   }
-
-    //   return value.toString() === filter.toString();
-    // };
+  params = {game:'',status:'', page:1, limit:10};
+  get paginationToolbar() {
+    return `displaying ${this.tournaments.page * this.tournaments.limit - this.tournaments?.limit + 1} - ${Math.min(this.tournaments?.page * this.tournaments?.limit, this.tournaments.totalDocs)} of ${this.tournaments.totalDocs}`
   }
+  constructor(private tournamentService: TournamentService, private router: Router) {}
 
   ngOnInit(): void {
     this.getAllTournaments().pipe(
@@ -71,24 +62,29 @@ export class TournamentListComponent implements OnInit {
 
   updateTournamentListByGame(param?: string): void{
     this.params.game = param;
-    console.log(this.params)
-    this.getAllTournaments().subscribe((list)=>{
-      this.tournaments = list;
-      console.log(this.tournaments)
-    })
+    this.updateTournamentList();
   }
 
   updateTournamentListByStatus(param?: string): void{
     this.params.status = param;
-    console.log(this.params)
+    this.updateTournamentList();
+  }
+  
+  onPageChange(event){
+    if(!(this.params.page === parseInt(event.page)+1)){
+      this.params.page = parseInt(event.page)+1
+      this.updateTournamentList();
+    }
+  }
+
+  updateTournamentList(){
     this.getAllTournaments().subscribe((list)=>{
+      console.log(list)
       this.tournaments = list;
-      console.log(this.tournaments)
     })
   }
   onSortChange(event) {
     let value = event.value;
-    console.log(value)
     if (value.indexOf('!') === 0) {
       this.sortOrder = -1;
       this.sortField = value.substring(1, value.length);
@@ -102,10 +98,10 @@ export class TournamentListComponent implements OnInit {
     let value = event.value;
     if (!this.filters.includes(value)) {
       this.filters += ',' + value;
-      console.log(this.filters);
     }
   }
   navigateTournament(tournament: Tournament) {
     this.router.navigate(['tournament/' + tournament._id]);
   }
+
 }

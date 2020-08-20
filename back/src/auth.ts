@@ -42,7 +42,7 @@ export async function isTournamentOwner(req, res, next) {
     try {
         const user = getUserFromToken(token);
         const tournamentOwner = await TournamentModel.findOne({ _id: req.params.id }).exec();
-        if (user.role === "admin" || user._id === tournamentOwner.ownerId) {
+        if (user.role === "admin" || user._id === tournamentOwner?.organizer?.id) {
             next();
         } else {
             return res.status(401).send({

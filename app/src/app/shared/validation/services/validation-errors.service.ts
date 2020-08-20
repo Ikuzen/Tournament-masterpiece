@@ -21,11 +21,11 @@ export class ValidationErrorsService {
     })
 
   }
-  forbiddenTournamentNameValidator(): AsyncValidatorFn {
+  forbiddenTournamentNameValidator(exceptionName?:string): AsyncValidatorFn {
     return ((control: AbstractControl): Observable<ValidationErrors | null> => {
       return this.tournamentService.getByName(control.value).pipe(
         map(res => {
-          return res?.name ? { forbiddenTournamentNameValidator: true } : null;
+          return  exceptionName !== res?.name && res?.name ? { forbiddenTournamentNameValidator: true } : null;
         })
       )
     })

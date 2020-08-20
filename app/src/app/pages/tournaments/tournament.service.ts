@@ -27,11 +27,18 @@ export class TournamentService {
 
   getAll(queryParams?: any): Observable<TournamentPages> {
     let params = new HttpParams()
+    //all the query params
     if(queryParams.game){
       params = params.set('game', queryParams.game);
     }
     if(queryParams.status){
       params = params.set('status', queryParams.status);
+    }
+    if(queryParams.limit){
+      params = params.set('limit', queryParams.limit);
+    }
+    if(queryParams.page){
+      params = params.set('page', queryParams.page);
     }
     console.log(params)
     return this.http.get<TournamentPages>('http://localhost:3000/tournament', {params});

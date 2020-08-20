@@ -1,5 +1,5 @@
-<p-dataView #dv [value]="tournaments?.docs" [paginator]="true" [rows]="10" paginatorPosition="both" filterBy="name"
-    [sortField]="sortField" [sortOrder]="sortOrder">
+<p-dataView #dv [value]="tournaments?.docs" [paginator]="false" [rows]="10" paginatorPosition="both" filterBy="name"
+    [sortField]="sortField" [totalRecords]="3" [sortOrder]="sortOrder">
     <p-header>
         <div class="ui-helper-clearfix">
             <div class="p-grid">
@@ -23,8 +23,13 @@
                     <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
                 </div>
             </div>
+            <p *ngIf="tournaments?.totalDocs"style="display: flex; justify-content: center;margin-bottom: 0;
+            margin-top: 10px;">{{paginationToolbar}} </p>
+            <p-paginator [rows]="10" [totalRecords]="tournaments?.totalDocs" pageLinkSize="3" (onPageChange)="onPageChange($event)"></p-paginator>
+
         </div>
     </p-header>
+    
     <!-- line view -->
     <ng-template let-tournament pTemplate="listItem">
         <div class="p-col-12">
@@ -33,6 +38,7 @@
                     <div class="p-grid">
                         <div class="p-col-12">name: <b>{{tournament.name}}</b></div>
                         <div class="p-col-12">game: <b>{{tournament.game}}</b></div>
+                        <div class="p-col-12">organizer: <b>{{tournament.organizer.username}}</b></div>
                         <div class="p-col-12"><b>{{tournament.size}} Participants</b></div>
                         <div class="p-col-12">created at <b>{{tournament.createdAt}}</b></div>
                         <div class="p-col-12">status :  <b>{{tournament.status}}</b></div>
@@ -49,6 +55,7 @@
                 <div class="tournament-detail">
                     <div class="p-col-12">name: <b>{{tournament.name}}</b></div>
                     <div class="p-col-12">game: <b>{{tournament.game}}</b></div>
+                    <div class="p-col-12">organizer: <b>{{tournament.organizer.username}}</b></div>
                     <div class="p-col-12">size: <b>{{tournament.size}}</b></div>
                     <div class="p-col-12">createdAt: <b>{{tournament.createdAt}}</b></div>
                     <div class="p-col-12">status :  <b>{{tournament.status}}</b></div>
@@ -59,3 +66,6 @@
         </div>
     </ng-template>
 </p-dataView>
+<p *ngIf="tournaments?.totalDocs"style="display: flex; justify-content: center;margin-bottom: 0;
+            margin-top: 10px;">{{paginationToolbar}} </p>
+            <p-paginator [rows]="10" [totalRecords]="tournaments?.totalDocs" pageLinkSize="3" (onPageChange)="onPageChange($event)"></p-paginator>

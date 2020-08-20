@@ -39,11 +39,12 @@ import {DropdownModule} from 'primeng/dropdown';
 import { TournamentNotFoundComponent } from './tournaments/tournament-not-found/tournament-not-found.component';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {FilterUtils} from 'primeng/utils';
+import { TournamentEditComponent } from './tournaments/tournament-edit/tournament-edit.component';
 
 
 
 @NgModule({
-  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, TournamentsComponent, TournamentCreationComponent, MainComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent, TournamentCreationComponent, TournamentNotFoundComponent],
+  declarations: [UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, TournamentsComponent, TournamentCreationComponent, MainComponent, LoginComponent, RegisterComponent, PasswordRecoveryComponent, ForbiddenComponent, TournamentCreationComponent, TournamentNotFoundComponent, TournamentEditComponent],
   imports: [
     CommonModule,
     CarouselModule,
@@ -67,9 +68,8 @@ import {FilterUtils} from 'primeng/utils';
     DropdownModule,
     PanelModule,
     InputTextareaModule,
-    // FilterUtils
   ],
   providers:[LocalStorageService, UtilService, ToastService, ValidationErrorsService],
-  exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, TournamentsComponent, TournamentCreationComponent]
+  exports:[UserDetailComponent, UserListComponent, TournamentListComponent, TournamentDetailComponent, MainComponent, TournamentsComponent, TournamentCreationComponent, TournamentEditComponent]
 })
 export class PagesModule { }
