@@ -1,3 +1,10 @@
-<app-navbar-top></app-navbar-top>
-<router-outlet></router-outlet>
-<app-navbar-bottom></app-navbar-bottom>
+<header style="position: fixed; top:0; z-index: 100; width: 100%;">
+    <app-navbar-top></app-navbar-top>
+</header>
+
+<div >
+    <div class="page-container">
+        <router-outlet></router-outlet>
+    </div>
+    <app-navbar-bottom></app-navbar-bottom>
+</div>

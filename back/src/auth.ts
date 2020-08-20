@@ -1,3 +1,5 @@
+import { TournamentModel } from "./models/tournaments/tournament-model";
+
 var atob = require('atob');
 
 const exjwt = require('express-jwt');
@@ -10,19 +12,49 @@ export const jwtMW = exjwt({
     secret: _secret
 });
 
-function getUserFromToken(token?: string): any {
+export function getUserFromToken(token?: string): any {
     if (token) {
         const decodedToken = JSON.parse(atob(token.split(".")[1]));
         return {
+            _id: decodedToken._id,
             username: decodedToken.username,
-            role: decodedToken.role
+            role: decodedToken.role,
+
         };
     }
     else {
         return {
             username: "",
-            role: "guest"
+            role: "guest",
         }
+    }
+}
+// check if owner with getById methods
+export async function isTournamentOwner(req, res, next) {
+    var token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+        return res.status(401).send({
+            success: false,
+            message: `Sign in to continue.`,
+        });
+    }
+
+    try {
+        const user = getUserFromToken(token);
+        const tournamentOwner = await TournamentModel.findOne({ _id: req.params.id }).exec();
+        if (user.role === "admin" || user._id === tournamentOwner?.organizer?.id) {
+            next();
+        } else {
+            return res.status(401).send({
+                success: false,
+                message: `You don't have the rights on this tournament.`,
+            });
+        }
+    } catch (err) {
+        return res.status(401).send({
+            success: false,
+            message: "Sign in to continue.",
+        });
     }
 }
 
@@ -37,9 +69,16 @@ export function isLoggedIn(req, res, next) {
             if (err) {
                 return res.status(401).send({
                     success: false,
-                    message: 'Sign in to continue.'
+                    message: 'Missing token. Sign in to continue.'
                 });
-            } else {
+            }
+            else if (decoded.body.exp < new Date(Date.now())) {
+                res.send({
+                    success: false,
+                    message: 'Token Expired. Sign in to continue.'
+                })
+            }
+            else {
                 // if everything is good, save to request for use in other routes
                 next();
             }
@@ -53,7 +92,6 @@ export function isLoggedIn(req, res, next) {
         });
     }
 }
-
 //admin method to check if token is valid and of type admin
 export function isAdmin(req, res, next) {
     // check header or url parameters or post parameters for token

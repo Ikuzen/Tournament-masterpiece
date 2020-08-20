@@ -19,6 +19,7 @@ export const login = createAction(
   props < {
     currentUser: {
       username: string
+      id: string
       role: string
     }
   } > ()

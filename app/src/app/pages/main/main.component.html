@@ -1,2 +1,6 @@
-<h3>Tournament Tree</h3>
+
+<div *ngIf="(user$ | async)?.username">
+    <button pButton>Your tournaments</button>
+</div>
+<h3>Welcome to NoiTO</h3>
 <app-bracket-tree></app-bracket-tree>

@@ -1,0 +1,77 @@
+
+p-dataview {
+    .filter-container {
+      text-align: center;
+      display: flex;
+    }
+
+    .tournament-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2em;
+      border-bottom: 1px solid #d9dad9;
+
+      div {
+        display: flex;
+        align-items: center;
+
+        img {
+          margin-right: 14px;
+        }
+      }
+    }
+
+    .tournament-details:hover {
+      background-color: lightgrey;
+      cursor: pointer;
+    }
+
+    .tournament-detail {
+      padding: 0 1em 1em 1em;
+      border-bottom: 1px solid #d9dad9;
+      margin: 1em;
+    }
+
+    .ui-panel-content {
+      padding: 1em;
+    }
+
+    div.ui-dataview-grid {
+
+      .ui-dataview-content {
+        div.ui-g {
+          div {
+            p-panel {
+              div {
+                background-color: lightgrey !important;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .dark-theme :host ::ng-deep .tournament-details,
+    .dark-theme :host ::ng-deep .tournament-detail {
+      border-bottom: 1px solid #191919;
+    }
+
+    @media (max-width: 1024px) {
+      .tournament-details img {
+        width: 75px;
+      }
+
+      .filter-container {
+        text-align: left;
+      }
+    }
+}
+
+.panel-grid-view{
+    button{
+        margin-top:0; 
+        min-width: 90%;
+    }
+}

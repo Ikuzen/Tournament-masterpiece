@@ -1,14 +1,14 @@
-<p-carousel [value]="userList" [numVisible]="1" [numScroll]="1" [circular]="false">
+<p-carousel [value]="userList" [numVisible]="3" [numScroll]="1" [circular]="false">
     <ng-template let-user pTemplate="item">
         <p-card [style]="{width: '360px'}" styleClass="ui-card-shadow">
             <p-header>
-                <span style="display: flex; flex-direction: row;"><i class="pi pi-user" style="display: flex; align-items: center; padding-right: 10px;"></i><h1>{{user.username}}</h1></span>
+                <span style="display: flex; flex-direction: row;"><i class="pi pi-user" style="display: flex; justify-content: center; align-items: center; padding-right: 10px;"></i><h1>Player : {{user.username}}</h1></span>
                
             </p-header>
             <div class="infos">
-                    <h2>age : {{getAge(user.birthDate)}} yo</h2>
                     <h2>email : {{user.email}}</h2>
-            
+                    <h2>top placements :</h2>
+                    <h2>tournaments : </h2>
             </div>
             <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
                 deserunt
