@@ -5,18 +5,28 @@ on: [push]
 jobs:
   build-app:
     name: Build App
-    runs-on: docker://node:alpine
+    runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v2
       - name: Build App
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
         run: |
           cd app
           npm ci
           npm run build
   build-back:
     name: Build back
-    runs-on: docker://node:alpine
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Build back
+      - uses: actions/checkout@v2
+      - name: Build Back
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
         run: |
           cd back
           npm ci
