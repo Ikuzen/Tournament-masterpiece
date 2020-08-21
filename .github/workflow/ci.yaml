@@ -1,0 +1,23 @@
+name: CI
+# This workflow is triggered on pushes to the repository.
+on: [push]
+
+jobs:
+  build-app:
+    name: Build App
+    runs-on: node:alpine
+    steps:
+      - name: Build App
+        run: |
+          cd app
+          npm ci
+          npm run build
+  build-back:
+    name: Build back
+    runs-on: node:alpine
+    steps:
+      - name: Build back
+        run: |
+          cd back
+          npm ci
+          npm run build
