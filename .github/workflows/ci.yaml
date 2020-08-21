@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build-app:
     name: Build App
-    runs-on: node:alpine
+    runs-on: docker://node:alpine
     steps:
       - name: Build App
         run: |
@@ -14,7 +14,7 @@ jobs:
           npm run build
   build-back:
     name: Build back
-    runs-on: node:alpine
+    runs-on: docker://node:alpine
     steps:
       - name: Build back
         run: |
