@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-        run: |
+      - run: |
           cd app
           npm ci
           npm run build
@@ -27,7 +27,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-        run: |
+      - run: |
           cd back
           npm ci
           npm run build
