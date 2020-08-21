@@ -30,4 +30,4 @@ jobs:
       - run: |
           cd back
           npm ci
-          npm run build
+          npm run compile
