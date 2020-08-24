@@ -40,7 +40,6 @@ export class TournamentDetailComponent implements OnInit {
         });
       },
       (error)=>{
-
       });
     });
   }

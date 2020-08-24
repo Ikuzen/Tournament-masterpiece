@@ -19,7 +19,8 @@
     "prepare": "npm run compile",
     "pretest": "npm run compile",
     "posttest": "npm run check",
-    "debug": "ts-node-dev src/index.ts"
+    "debug": "ts-node-dev src/index.ts",
+    "db-init": "ts-node src/database-init/DBinsertScript.ts"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
