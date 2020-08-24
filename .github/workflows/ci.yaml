@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build-app:
-    name: Build App
+    name: Build App and Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -17,6 +17,18 @@ jobs:
           cd app
           npm ci
           npm run build
+      - name: Authenticate into Google Cloud Platform
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          service_account_email: ${{ secrets.GCLOUD_EMAIL }}
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+
+      - name: Configure Docker to use Google Cloud Platform
+        run: "gcloud auth configure-docker --quiet"
+
+      - name: Deploy on App Engine
+        run: |
+          gcloud app deploy ${{ secrets.GCLOUD_APP_NAME }} --project ${{ secrets.GCLOUD_PROJECT }}
   build-back:
     name: Build back
     runs-on: ubuntu-latest
